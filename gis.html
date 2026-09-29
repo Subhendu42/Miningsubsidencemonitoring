@@ -1,0 +1,794 @@
+<!DOCTYPE html><html class="light" lang="en"><head><meta content="web_dashboard" name="shell-type"><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><title>TerraSync // GeoTelemetry Console</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=DM+Serif+Text:ital@0;1&amp;family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "tertiary": "#845412",
+          "on-secondary-fixed": "#201c00",
+          "on-error": "#ffffff",
+          "surface-variant": "#ffdcc2",
+          "tertiary-fixed": "#ffddbb",
+          "primary-fixed-dim": "#aecadf",
+          "surface-bright": "#fff8f5",
+          "primary": "#466273",
+          "inverse-primary": "#aecadf",
+          "surface-container-low": "#fff1e8",
+          "secondary-fixed-dim": "#d6c86f",
+          "on-tertiary-fixed-variant": "#673d00",
+          "surface-container-lowest": "#ffffff",
+          "outline-variant": "#c2c7cc",
+          "outline": "#73787c",
+          "secondary-fixed": "#f3e488",
+          "on-secondary-fixed-variant": "#504700",
+          "on-surface": "#2e1500",
+          "on-primary": "#ffffff",
+          "on-background": "#2e1500",
+          "on-secondary-container": "#706516",
+          "on-primary-fixed-variant": "#2e4a5b",
+          "primary-container": "#c4e1f6",
+          "on-primary-container": "#496476",
+          "surface-container-highest": "#ffdcc2",
+          "on-tertiary": "#ffffff",
+          "surface-container-high": "#ffe3cf",
+          "background": "#fff8f5",
+          "inverse-on-surface": "#ffeee2",
+          "surface-tint": "#466273",
+          "on-secondary": "#ffffff",
+          "error": "#ba1a1a",
+          "inverse-surface": "#4c2700",
+          "tertiary-container": "#ffd6ac",
+          "tertiary-fixed-dim": "#fbba70",
+          "primary-fixed": "#c9e6fc",
+          "on-surface-variant": "#42474c",
+          "surface-dim": "#ffd1ad",
+          "surface": "#fff8f5",
+          "on-tertiary-fixed": "#2b1700",
+          "error-container": "#ffdad6",
+          "on-tertiary-container": "#885615",
+          "surface-container": "#ffeadc",
+          "on-error-container": "#93000a",
+          "secondary": "#6a5f0f",
+          "secondary-container": "#f3e488"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "gutter": "1rem",
+          "space-xl": "2rem",
+          "space-xs": "0.25rem",
+          "space-lg": "1.5rem",
+          "margin": "1.5rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem"
+        },
+        "fontFamily": {
+          "body-md": [
+            "Archivo Narrow",
+            "sans-serif"
+          ],
+          "headline-lg": [
+            "Archivo Narrow",
+            "sans-serif"
+          ],
+          "label-sm": [
+            "JetBrains Mono",
+            "monospace"
+          ],
+          "label-md": [
+            "Archivo Narrow",
+            "sans-serif"
+          ],
+          "mono": [
+            "JetBrains Mono",
+            "monospace"
+          ]
+        },
+        "fontSize": {
+          "body-md": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-lg": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "fontWeight": "600"
+            }
+          ],
+          "label-sm": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "500"
+            }
+          ],
+          "label-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "500"
+            }
+          ]
+        }
+      }
+    }
+  }
+</script></head><body class="bg-background font-body-md text-on-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface/95 backdrop-blur-md shadow-sm border-b border-surface-container flex items-center justify-between px-space-md lg:px-space-lg"><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-space-sm"><img alt="TerraSync Geospatial Sub-surface Telemetry Logo" class="h-8 w-auto object-contain rounded" src="https://lh3.googleusercontent.com/aida/AEtjO1VojGsmeF1SLlp8_O0B3cqBNBz1w5ZAZJwIbz5P_0oR1ylROeYy4L3UlPD96kuMPkVHC-bMnaqrexpWsqqKCZJKzxKr64yC5sqnM7CiQr4eaweCyyNFiNE83VDToCCAyCt50-rDj3VXm7Xc7qwfrNFgL8lg34hZY0tgroZoMgO2F8OM4wUzScFcm6I4qArNYCPyxFsp8oQAAQ03PUqttMPrgRJuNMzIWTsX1ACm7lFdZ-SV8JYBSKVw0tc0"><div class="flex flex-col"><span class="text-sm font-headline-lg font-bold tracking-tight text-on-surface uppercase">TerraSync // GeoTelemetry</span><span class="text-[10px] text-primary font-mono tracking-wider flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>Mesh: 99.8% Online • Sync: 2s ago</span></div></div><div class="h-6 w-px bg-surface-container-highest hidden sm:block"></div><button class="hidden md:flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container-low border border-surface-container text-xs text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[16px] text-primary">layers</span><span class="font-medium font-mono text-[11px]">Shaft Sector 04 - Longwall North</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></button></div><nav class="hidden xl:flex items-center gap-space-xs shrink-0" data-active-classes="bg-surface-container-high text-on-surface font-semibold shadow-2xs"><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="live-dashboard" href="#">Live Dashboard</a><a aria-current="page" class="px-space-sm py-1.5 rounded-lg transition-colors bg-primary-container text-on-primary-container font-semibold shadow-2xs" data-path="gis-map" href="#">GIS Map</a><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="sensor-fleet" href="#">Sensor Fleet</a><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="data-collected" href="#">Data Collected</a><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="emergency" href="#">Emergency</a><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="admin-and-config" href="#">Admin &amp; Config</a></nav><div class="flex items-center gap-space-sm shrink-0"><button class="relative p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-semibold shadow-sm"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></header><div class=""><main class="w-full pt-16 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Telemetry Sub-header & GIS Spatial Toolbar -->
+<div class="w-full bg-surface-container-low px-space-md py-space-sm flex flex-col xl:flex-row xl:items-center xl:justify-between gap-space-sm border-b border-surface-container shadow-xs">
+<!-- Breadcrumb & Coordinates -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-mono text-[11px] uppercase tracking-wider">
+<span class="">Basin North</span>
+<span class="text-outline">/</span>
+<span class="">Sub-Terra Div</span>
+<span class="text-outline">/</span>
+<span class="text-primary font-semibold">Sector 04 Longwall</span>
+<span class="text-outline">/</span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded text-on-surface font-semibold text-[10px]">GIS Spatial Heatmap</span>
+</div>
+<div class="hidden md:flex items-center gap-2 pl-2 border-l border-surface-container-highest font-mono text-[11px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-primary">my_location</span>
+<span class="font-medium text-on-surface">23°44'12.4" S, 148°12'08.2" E</span>
+<span class="text-outline-variant">•</span>
+<span class="text-[10px] text-on-surface-variant">WGS84 Geoid EGM96</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+<span class="text-[10px] text-primary font-semibold uppercase">RTK Fixed (±4mm)</span>
+</div>
+</div>
+<!-- Map Projection Mode Selector & Action Buttons -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="flex items-center bg-surface-container rounded-lg p-0.5 border border-surface-container-highest">
+<button class="px-2.5 py-1 rounded font-mono text-[11px] font-semibold bg-primary text-on-primary shadow-xs transition-colors flex items-center gap-1" id="mode-sat">
+<span class="material-symbols-outlined text-[14px]">satellite_alt</span> Sat + Topo
+        </button>
+<button class="px-2.5 py-1 rounded font-mono text-[11px] text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" id="mode-strata">
+<span class="material-symbols-outlined text-[14px]">layers</span> 3D Strata
+        </button>
+<button class="px-2.5 py-1 rounded font-mono text-[11px] text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" id="mode-vector">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> Vectors
+        </button>
+<button class="px-2.5 py-1 rounded font-mono text-[11px] text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" id="mode-hydrology">
+<span class="material-symbols-outlined text-[14px]">water_drop</span> Hydro
+        </button>
+</div>
+<div class="h-4 w-px bg-surface-container-highest mx-1 hidden sm:block"></div>
+<button class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-label-md text-xs font-medium flex items-center gap-1.5 transition-colors border border-surface-container-highest/60" id="btn-recenter">
+<span class="material-symbols-outlined text-[16px] text-primary">center_focus_strong</span>
+<span class="">Reset Extents</span>
+</button>
+<button class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-label-md text-xs font-medium flex items-center gap-1.5 transition-colors border border-surface-container-highest/60">
+<span class="material-symbols-outlined text-[16px] text-secondary">tune</span>
+<span class="">Contour: 5m</span>
+</button>
+<button class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-label-md text-xs font-medium flex items-center gap-1.5 transition-colors border border-surface-container-highest/60">
+<span class="material-symbols-outlined text-[16px] text-primary">file_download</span>
+<span class="">Export GeoTIFF</span>
+</button>
+<button class="px-2.5 py-1 bg-primary-container text-on-primary-container hover:bg-primary-fixed-dim rounded font-label-md text-xs font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span class="">LiDAR Synced (4m ago)</span>
+</button>
+</div>
+</div>
+<!-- Main Multi-Panel Workspace -->
+<div class="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden" style="min-height: 540px; height: 560px;">
+<!-- Left Geotechnical Controls & Sensor Fleet List Sidebar -->
+<div class="lg:col-span-3 xl:col-span-3 bg-surface-container-low border-r border-surface-container flex flex-col p-space-md gap-space-md overflow-y-auto max-h-[calc(100vh-7rem)]" style="max-height: 560px; height: 560px;">
+<!-- Panel Header & Search -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-lg text-sm uppercase tracking-wider text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">cell_tower</span>
+            Spatial Node Fleet
+          </span>
+<span class="font-mono text-[10px] bg-primary text-on-primary px-2 py-0.5 rounded-full font-bold">20 NODES ONLINE</span>
+</div>
+<p class="font-body-md text-xs text-on-surface-variant">Real-time telemetric mesh telemetry &amp; borehole subsidence coordinates</p>
+<!-- Fast Search Input -->
+<div class="relative mt-2">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-[18px] text-outline">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 rounded-lg bg-surface-container-lowest border border-outline-variant text-xs font-mono text-on-surface placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary shadow-xs" id="sensor-search" placeholder="Search Mesh, ID, MPBX, PZ..." type="text">
+</div>
+</div>
+<!-- Quick Mesh Cluster Selector -->
+<div class="flex flex-col gap-2 p-3 rounded-lg border border-outline-variant bg-surface-container-lowest/80 shadow-xs"><div class="flex items-center justify-between"><span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Active Sector Mesh Array</span><span class="font-mono text-[10px] text-outline">4 Active</span></div><div class="grid grid-cols-2 gap-1.5" id="mesh-selector-container"><button class="mesh-filter-btn px-2.5 py-1.5 rounded bg-primary text-on-primary font-mono text-[11px] font-semibold text-left shadow-xs transition-colors flex items-center justify-between" data-mesh="all"><span class="">ALL MESHES</span><span class="text-[9px] bg-on-primary/20 px-1 py-0.2 rounded">4 C</span></button><button class="mesh-filter-btn px-2.5 py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-error font-mono text-[11px] font-semibold text-left transition-colors flex items-center justify-between" data-mesh="01"><span class="truncate">MESH 01 (Rib)</span><span class="w-2 h-2 rounded-full bg-error animate-ping"></span></button><button class="mesh-filter-btn px-2.5 py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-mono text-[11px] text-left transition-colors flex items-center justify-between" data-mesh="02"><span class="truncate">MESH 02 (Aquifer)</span><span class="w-1.5 h-1.5 rounded-full bg-primary"></span></button><button class="mesh-filter-btn px-2.5 py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-tertiary font-mono text-[11px] text-left transition-colors flex items-center justify-between" data-mesh="03"><span class="truncate">MESH 03 (Slope)</span><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span></button></div></div>
+<!-- Sensor Type Filter Multi-Select Pills -->
+<div class="flex flex-col gap-2 p-3 rounded-lg border border-outline-variant bg-surface-container-lowest/80 shadow-xs"><div class="flex items-center justify-between"><span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Instrument Classification</span><span class="font-mono text-[10px] text-primary cursor-pointer hover:underline">Select All</span></div><div class="flex flex-wrap gap-1"><span class="px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-mono text-[10px] font-semibold cursor-pointer">ALL (20)</span><span class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-mono text-[10px] cursor-pointer">MPBX (6)</span><span class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-mono text-[10px] cursor-pointer">TLT (5)</span><span class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-mono text-[10px] cursor-pointer">PZ (5)</span><span class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-mono text-[10px] cursor-pointer">GNSS (4)</span></div></div>
+<!-- Sensor Fleet Cards List (Interactive) -->
+<div class="flex flex-col gap-2 flex-1 overflow-y-auto pr-1" id="sensor-card-list">
+<!-- Sensor Item N128 (Critical Anchor) -->
+<div class="sensor-list-card p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition cursor-pointer border-l-4 border-error relative group border-y border-r border-outline-variant/60" data-sensor-id="N128">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-xs font-bold text-on-surface">N128</span>
+<span class="font-mono text-[10px] bg-secondary-container px-1.5 py-0.5 rounded text-on-secondary-container font-semibold">MPBX-04</span>
+<span class="font-mono text-[9px] text-error font-bold uppercase tracking-wider bg-error-container px-1 rounded">Critical Breach</span>
+</div>
+<p class="font-body-md text-[11px] text-on-surface-variant mt-0.5">Shaft 04 Longwall Excavation Face (Sub-collar)</p>
+</div>
+<button class="p-1 rounded hover:bg-surface-container text-primary transition">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+<div class="mt-2 grid grid-cols-2 gap-2 bg-surface-container-low p-2 rounded-lg font-mono text-[10px]">
+<div>
+<span class="text-outline text-[9px] block">TOTAL SUBSIDENCE</span>
+<span class="font-bold text-error text-[13px]">-138.4 mm</span>
+</div>
+<div>
+<span class="text-outline text-[9px] block">RATE / 24H</span>
+<span class="font-bold text-error text-[13px]">+6.2 mm/d</span>
+</div>
+</div>
+<div class="mt-2 flex items-center justify-between text-[10px] font-mono text-on-surface-variant">
+<span class="">Depth: -125.0m • Anchor 3</span>
+<span class="text-error font-semibold flex items-center gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> Alarming
+            </span>
+</div>
+</div>
+<!-- Sensor Item N126 (High Risk Tilt) -->
+<div class="sensor-list-card p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition cursor-pointer border-l-4 border-tertiary relative group border-y border-r border-outline-variant/60" data-sensor-id="N126">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-xs font-bold text-on-surface">N126</span>
+<span class="font-mono text-[10px] bg-secondary-container px-1.5 py-0.5 rounded text-on-secondary-container font-semibold">TLT-02</span>
+<span class="font-mono text-[9px] text-on-tertiary-container font-bold uppercase tracking-wider bg-tertiary-container px-1 rounded">High Risk</span>
+</div>
+<p class="font-body-md text-[11px] text-on-surface-variant mt-0.5">Substation Perimeter Batter Slope</p>
+</div>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant transition">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+<div class="mt-2 grid grid-cols-2 gap-2 bg-surface-container-low p-2 rounded-lg font-mono text-[10px]">
+<div>
+<span class="text-outline text-[9px] block">VECTOR TILT</span>
+<span class="font-bold text-tertiary text-[13px]">+1.12 mm/m</span>
+</div>
+<div>
+<span class="text-outline text-[9px] block">DISPLACEMENT</span>
+<span class="font-bold text-tertiary text-[13px]">-41.2 mm</span>
+</div>
+</div>
+<div class="mt-2 flex items-center justify-between text-[10px] font-mono text-on-surface-variant">
+<span class="">Collar Elev: +278.4m</span>
+<span class="text-tertiary font-medium">Slope Creep</span>
+</div>
+</div>
+<!-- Sensor Item N114 (Nominal Piezometer) -->
+<div class="sensor-list-card p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition cursor-pointer border-l-4 border-primary relative group border-y border-r border-outline-variant/60" data-sensor-id="N114">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-xs font-bold text-on-surface">N114</span>
+<span class="font-mono text-[10px] bg-surface-container px-1.5 py-0.5 rounded text-on-surface font-semibold">PZ-07</span>
+<span class="font-mono text-[9px] text-on-primary-container font-bold uppercase tracking-wider bg-primary-container px-1 rounded">Nominal</span>
+</div>
+<p class="font-body-md text-[11px] text-on-surface-variant mt-0.5">Confined Sandstone Aquifer Horizon 2</p>
+</div>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant transition">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+<div class="mt-2 grid grid-cols-2 gap-2 bg-surface-container-low p-2 rounded-lg font-mono text-[10px]">
+<div>
+<span class="text-outline text-[9px] block">PORE PRESSURE</span>
+<span class="font-bold text-primary text-[13px]">1.48 MPa</span>
+</div>
+<div>
+<span class="text-outline text-[9px] block">HEAD LEVEL</span>
+<span class="font-bold text-on-surface text-[13px]">+184.2 m</span>
+</div>
+</div>
+<div class="mt-2 flex items-center justify-between text-[10px] font-mono text-on-surface-variant">
+<span class="">Depth: -88.0m</span>
+<span class="text-primary font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Hydraulic Stable</span>
+</div>
+</div>
+<!-- Sensor Item N102 (GNSS Rover) -->
+<div class="sensor-list-card p-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition cursor-pointer border-l-4 border-primary relative group border-y border-r border-outline-variant/60" data-sensor-id="N102">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-xs font-bold text-on-surface">N102</span>
+<span class="font-mono text-[10px] bg-surface-container px-1.5 py-0.5 rounded text-on-surface font-semibold">GNSS-09</span>
+<span class="font-mono text-[9px] text-on-primary-container font-bold uppercase tracking-wider bg-primary-container px-1 rounded">Nominal</span>
+</div>
+<p class="font-body-md text-[11px] text-on-surface-variant mt-0.5">Crown Pillar Ridge Bench Station</p>
+</div>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant transition">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+<div class="mt-2 grid grid-cols-2 gap-2 bg-surface-container-low p-2 rounded-lg font-mono text-[10px]">
+<div>
+<span class="text-outline text-[9px] block">Z-DEFLECTION</span>
+<span class="font-bold text-primary text-[13px]">-3.2 mm</span>
+</div>
+<div>
+<span class="text-outline text-[9px] block">RTK QUALITY</span>
+<span class="font-bold text-on-surface text-[13px]">12 Sats • Q1</span>
+</div>
+</div>
+<div class="mt-2 flex items-center justify-between text-[10px] font-mono text-on-surface-variant">
+<span class="">Mesh: 04 • Pillar Crest</span>
+<span class="text-primary font-medium">Safe Limit</span>
+</div>
+</div>
+</div>
+<!-- Map Layer Toggles Section -->
+<div class="bg-surface-container p-3 rounded-xl flex flex-col gap-2 border border-surface-container-highest">
+<span class="font-mono text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">GIS Cartographic Overlays</span>
+<label class="flex items-center justify-between cursor-pointer py-1">
+<span class="font-mono text-[11px] text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-error"></span> Subsidence Heatmap
+          </span>
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</label>
+<label class="flex items-center justify-between cursor-pointer py-1">
+<span class="font-mono text-[11px] text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span> LoRa Mesh Link Vectors
+          </span>
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</label>
+<label class="flex items-center justify-between cursor-pointer py-1">
+<span class="font-mono text-[11px] text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> Longwall Void Contours
+          </span>
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</label>
+<label class="flex items-center justify-between cursor-pointer py-1">
+<span class="font-mono text-[11px] text-on-surface flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> 5m Topographic Lines
+          </span>
+<input checked="" class="rounded text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</label>
+</div>
+</div>
+<!-- Center/Right High-Precision GIS Map Viewport Canvas -->
+<div class="lg:col-span-9 xl:col-span-9 relative flex flex-col bg-surface-dim overflow-hidden select-none p-3" id="map-viewport-container" style="height: 560px;">
+<!-- Top Title HUD Overlay -->
+<div class="absolute z-20 bg-surface/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-md border border-surface-container-highest flex items-center gap-4 top-6 left-6">
+<div class="flex flex-col">
+<span class="font-headline-lg text-sm md:text-base font-bold tracking-wider uppercase text-on-surface">
+            Subsidence Monitoring Zone // Geological Risk Assessment
+          </span>
+<span class="font-mono text-[10px] text-on-surface-variant flex items-center gap-2">
+<span class="">Projection: UTM Zone 55S</span>
+<span class="text-outline">•</span>
+<span class="">Mesh Frequency: 868.1 MHz</span>
+<span class="text-outline">•</span>
+<span class="text-primary font-semibold">Active Sensor Telemetry: 20 Boreholes</span>
+</span>
+</div>
+<div class="hidden xl:flex items-center gap-2 pl-3 border-l border-surface-container-highest">
+<span class="px-2 py-1 rounded bg-error-container text-on-error-container font-mono text-[10px] font-bold">CRITICAL SECTOR RED FLAG</span>
+</div>
+</div>
+<!-- Map Floating Viewport Controls (Top Right) -->
+<div class="absolute top-6 right-6 z-20 flex flex-col gap-1.5 bg-surface/90 backdrop-blur-md p-1.5 rounded-xl shadow-md border border-surface-container-highest">
+<button class="w-8 h-8 rounded bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface text-sm transition" title="Zoom In">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface text-sm transition" title="Zoom Out">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<div class="h-px bg-surface-container-highest my-0.5"></div>
+<button class="w-8 h-8 rounded bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface text-sm transition" title="Tilt / 3D Oblique View">
+<span class="material-symbols-outlined text-[18px]">view_in_ar</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface text-sm transition" title="Measure Distance Tool">
+<span class="material-symbols-outlined text-[18px]">straighten</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-primary text-sm transition" title="Compass Orientation">
+<span class="material-symbols-outlined text-[18px]">navigation</span>
+</button>
+</div>
+<!-- Core Interactive Interactive Map Background & SVG Telemetry Overlay -->
+<div class="relative w-full h-full lg:min-h-full flex items-center justify-center overflow-hidden cursor-crosshair rounded-2xl border border-outline-variant shadow-md" id="interactive-map-area">
+<!-- Satellite / Topography Base Layer -->
+<img class="absolute inset-0 w-full h-full object-cover object-center scale-105 filter saturate-[0.85] contrast-[1.05]" data-alt="High-resolution aerial satellite orthophoto of an open-pit mine quarry with concentric contour bench terracing, underground entry portal, winding gravel haul roads, and vast arid geological terrain in soft natural earthen ochre, pale green, and charcoal tones, aerial orthomosaic mapping viewpoint." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZam8hW0Wej3Vfc6C8E_hV5IAZ2rGu45HR5K74h-txDQx2vhrv9xQ3w_RDprEMD79kkaI0wJDNKM4VTevE76Balklf-OkHv5WUxaK7bhMNu5hNJQwRVB7m_YxptCVmEeSRqDtF3s4J0ck_xC_RldK8u-0VmPfYbepWh4Uu54uW1OaFk1Wg030vz_zYah2NtDDz6l0LkUwiMhz7YuAQDa59n_DxafmS2e1tlPbEjLuc5yx1SzYeFqKnlA">
+<!-- Topographic Contour & Heatmap SVG Overlay Layer -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-10" preserveAspectRatio="none" viewBox="0 0 1000 650">
+<defs>
+<!-- Radial and linear gradients for heat contours matching palette -->
+<radialGradient cx="62%" cy="56%" fx="62%" fy="56%" id="critical-heat" r="28%">
+<stop offset="0%" stop-color="#ba1a1a" stop-opacity="0.88"></stop>
+<stop offset="35%" stop-color="#93000a" stop-opacity="0.75"></stop>
+<stop offset="60%" stop-color="#ffd6ac" stop-opacity="0.55"></stop>
+<stop offset="85%" stop-color="#c4e1f6" stop-opacity="0.30"></stop>
+<stop offset="100%" stop-color="#466273" stop-opacity="0"></stop>
+</radialGradient>
+<radialGradient cx="44%" cy="40%" fx="44%" fy="40%" id="amber-heat-slope" r="24%">
+<stop offset="0%" stop-color="#ffd6ac" stop-opacity="0.7"></stop>
+<stop offset="50%" stop-color="#fbba70" stop-opacity="0.45"></stop>
+<stop offset="100%" stop-color="#466273" stop-opacity="0"></stop>
+</radialGradient>
+<!-- Grid pattern for GIS reference grid -->
+<pattern height="100" id="gis-grid" patternUnits="userSpaceOnUse" width="100">
+<path d="M 100 0 L 0 0 0 100" fill="none" stroke="#2e1500" stroke-dasharray="2,3" stroke-opacity="0.22" stroke-width="0.35"></path>
+</pattern>
+</defs>
+<!-- GIS Coordinate Grid Overlay -->
+<rect fill="url(#gis-grid)" height="100%" width="100%"></rect>
+<!-- Heatmap Subsidence Plumes -->
+<path class="mix-blend-multiply" d="M 360,180 C 440,140 540,160 580,240 C 620,320 680,440 600,510 C 520,580 430,520 380,470 C 330,420 320,310 340,240 Z" fill="url(#amber-heat-slope)"></path>
+<!-- Transition Accent Contour Ring -->
+<path d="M 440,260 C 500,240 560,260 620,300 C 680,340 700,450 630,490 C 560,530 480,480 450,420 C 420,360 410,290 440,260 Z" fill="#c4e1f6" fill-opacity="0.5" stroke="#466273" stroke-dasharray="4,2" stroke-width="1"></path>
+<!-- High-Risk Red Zone -->
+<path d="M 570,330 C 620,320 645,340 655,380 C 665,430 640,460 600,465 C 570,470 560,430 555,390 C 550,350 560,335 570,330 Z" fill="url(#critical-heat)" stroke="#ba1a1a" stroke-width="1.8"></path>
+<!-- Underground Longwall Void Perimeter Polygon -->
+<polygon fill="none" points="575,345 635,360 625,435 580,430" stroke="#2e1500" stroke-dasharray="3,3" stroke-width="2"></polygon>
+<polyline fill="none" points="625,435 640,470 680,480 670,510" stroke="#2e1500" stroke-width="1.5"></polyline>
+<!-- LoRa Mesh Wireless Links -->
+<line stroke="#ba1a1a" stroke-dasharray="3,3" stroke-opacity="0.8" stroke-width="1.5" x1="595" x2="630" y1="380" y2="350"></line>
+<line stroke="#ba1a1a" stroke-dasharray="3,3" stroke-opacity="0.8" stroke-width="1.5" x1="595" x2="560" y1="380" y2="430"></line>
+<line stroke="#ffd6ac" stroke-dasharray="2,2" stroke-opacity="0.8" stroke-width="1.2" x1="595" x2="520" y1="380" y2="390"></line>
+<line stroke="#466273" stroke-dasharray="3,3" stroke-opacity="0.7" stroke-width="1.2" x1="440" x2="410" y1="240" y2="280"></line>
+<line stroke="#466273" stroke-dasharray="3,3" stroke-opacity="0.7" stroke-width="1.2" x1="410" x2="430" y1="280" y2="340"></line>
+<line stroke="#466273" stroke-dasharray="3,3" stroke-opacity="0.7" stroke-width="1.2" x1="430" x2="490" y1="340" y2="340"></line>
+<!-- Contour Elevation Lines -->
+<ellipse cx="330" cy="440" fill="none" rx="90" ry="75" stroke="#73787c" stroke-opacity="0.4" stroke-width="0.6"></ellipse>
+<ellipse cx="330" cy="440" fill="none" rx="65" ry="55" stroke="#73787c" stroke-opacity="0.4" stroke-width="0.6"></ellipse>
+<ellipse cx="330" cy="440" fill="none" rx="40" ry="35" stroke="#73787c" stroke-opacity="0.4" stroke-width="0.6"></ellipse>
+<!-- East Pit Contour Concentric Ring Lines -->
+<circle cx="650" cy="230" fill="none" r="40" stroke="#73787c" stroke-opacity="0.4" stroke-width="0.7"></circle>
+<circle cx="650" cy="230" fill="none" r="70" stroke="#73787c" stroke-opacity="0.4" stroke-width="0.7"></circle>
+<circle cx="650" cy="230" fill="none" r="105" stroke="#73787c" stroke-opacity="0.4" stroke-width="0.7"></circle>
+<circle cx="650" cy="230" fill="none" r="140" stroke="#73787c" stroke-opacity="0.4" stroke-width="0.7"></circle>
+<!-- Callout pointer line -->
+<line stroke="#2e1500" stroke-width="1.5" x1="600" x2="680" y1="380" y2="390"></line>
+<circle cx="600" cy="380" fill="#ba1a1a" r="3"></circle>
+</svg>
+<!-- Dynamic Map Annotation Overlays -->
+<div class="absolute z-10 pointer-events-none" style="top: 57%; left: 69%;">
+<div class="bg-surface/95 px-2 py-0.5 rounded shadow font-headline-lg font-bold text-xs text-on-surface border-l-2 border-error">
+            Underground Mining Entry (Face 04)
+          </div>
+</div>
+<div class="absolute z-10 pointer-events-none" style="top: 64%; left: 38%;">
+<div class="bg-surface/90 px-2 py-0.5 rounded text-[10px] font-mono text-on-surface flex items-center gap-1 border border-surface-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Cluster: Borehole Field P-West
+          </div>
+</div>
+<!-- MAP PINS -->
+<!-- PIN N128 (CRITICAL) -->
+<div class="absolute z-30 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:scale-125" id="pin-N128" style="top: 58%; left: 59.5%;">
+<div class="relative flex items-center justify-center">
+<span class="absolute w-8 h-8 rounded-full bg-error opacity-75 animate-ping"></span>
+<span class="absolute w-5 h-5 rounded-full bg-error-container opacity-90"></span>
+<div class="relative w-4 h-4 rounded-full bg-error flex items-center justify-center shadow-md border-2 border-surface-container-lowest">
+<div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+</div>
+<div class="absolute left-5 top-0 whitespace-nowrap bg-inverse-surface/95 backdrop-blur-sm text-surface-bright px-2 py-0.5 rounded text-[10px] font-mono font-bold shadow-md flex items-center gap-1.5">
+<span class="text-error-container font-extrabold">● N128</span>
+<span class="">-138.4mm</span>
+</div>
+</div>
+</div>
+<!-- PIN N126 (HIGH RISK) -->
+<div class="absolute z-30 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:scale-125" id="pin-N126" style="top: 42%; left: 52%;">
+<div class="relative flex items-center justify-center">
+<span class="absolute w-6 h-6 rounded-full bg-tertiary-container opacity-60 animate-pulse"></span>
+<div class="relative w-3.5 h-3.5 rounded-full bg-tertiary flex items-center justify-center shadow-md border border-white">
+<div class="w-1 h-1 rounded-full bg-white"></div>
+</div>
+<div class="absolute left-4 -top-2 whitespace-nowrap bg-inverse-surface/90 backdrop-blur-sm text-surface-bright px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold shadow-xs">
+<span class="text-tertiary-fixed font-bold">N126</span> +1.12mm/m
+            </div>
+</div>
+</div>
+<!-- PIN N114 (NOMINAL) -->
+<div class="absolute z-30 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:scale-125" id="pin-N114" style="top: 55%; left: 47%;">
+<div class="relative flex items-center justify-center">
+<div class="w-3 h-3 rounded-full bg-primary flex items-center justify-center shadow-sm border border-white">
+<div class="w-1 h-1 rounded-full bg-white"></div>
+</div>
+<div class="absolute left-3.5 -top-1 whitespace-nowrap bg-surface/95 text-on-surface px-1.5 py-0.2 rounded text-[9px] font-mono shadow-xs hidden md:block border border-surface-container">
+              N114 (1.48MPa)
+            </div>
+</div>
+</div>
+<!-- PIN N102 (NOMINAL) -->
+<div class="absolute z-30 cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:scale-125" id="pin-N102" style="top: 72%; left: 31%;">
+<div class="relative flex items-center justify-center">
+<div class="w-3 h-3 rounded-full bg-primary flex items-center justify-center shadow-sm border border-white">
+<div class="w-1 h-1 rounded-full bg-white"></div>
+</div>
+<div class="absolute left-3.5 -top-1 whitespace-nowrap bg-surface/95 text-on-surface px-1.5 py-0.2 rounded text-[9px] font-mono shadow-xs hidden md:block border border-surface-container">
+              N102 (-3.2mm)
+            </div>
+</div>
+</div>
+<!-- Secondary Ambient Borehole Radar Nodes -->
+<div class="absolute z-20 cursor-pointer" style="top: 26%; left: 39%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 31%; left: 44%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 35%; left: 40.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 39%; left: 42%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 33%; left: 51.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 38%; left: 53%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 46%; left: 46.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 49%; left: 36.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 49%; left: 43%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 61%; left: 52.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 64%; left: 52.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 71%; left: 56.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 78%; left: 31%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+<div class="absolute z-20 cursor-pointer" style="top: 67%; left: 31.5%;"><div class="w-2.5 h-2.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center"><div class="w-1 h-1 rounded-full bg-on-surface"></div></div></div>
+</div>
+<!-- Map Scale Bar & Basemap Switcher (Bottom Left HUD) -->
+<div class="absolute bottom-4 left-6 z-20 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+<!-- Scale Bar -->
+<div class="bg-surface/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm border border-surface-container flex items-center gap-3 font-mono text-[10px] text-on-surface">
+<span class="">0</span>
+<div class="w-16 h-1.5 bg-on-surface flex">
+<div class="w-1/2 h-full bg-surface-container-lowest"></div>
+</div>
+<span class="">100m</span>
+<div class="w-16 h-1.5 bg-on-surface flex">
+<div class="w-1/2 h-full bg-surface-container-lowest"></div>
+</div>
+<span class="">250m</span>
+</div>
+<!-- Basemap Quick Switcher -->
+<div class="bg-surface/90 backdrop-blur-md p-1 rounded-lg shadow-sm border border-surface-container flex items-center gap-1 font-mono text-[10px]">
+<button class="px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-semibold">SAT-ORTHO</button>
+<button class="px-2 py-0.5 rounded hover:bg-surface-container text-on-surface-variant">LIDAR-DEM</button>
+<button class="px-2 py-0.5 rounded hover:bg-surface-container text-on-surface-variant">GEOL-STRATA</button>
+</div>
+</div>
+<!-- Cartographic Risk Legend Box (Bottom Right HUD) -->
+<div class="absolute bottom-4 right-6 z-20 bg-surface/95 backdrop-blur-md p-3 rounded-xl shadow-md border border-surface-container flex flex-col gap-2 max-w-xs font-mono text-[11px]">
+<div class="flex items-center justify-between border-b border-surface-container pb-1">
+<span class="font-bold text-on-surface uppercase text-[10px] tracking-wider">Subsidence Risk Gradient</span>
+<span class="text-[9px] text-outline">ISO 18674-2</span>
+</div>
+<div class="grid grid-cols-1 gap-1">
+<div class="flex items-center gap-2">
+<span class="w-4 h-2.5 rounded-xs bg-[#ba1a1a] border border-[#93000a]"></span>
+<span class="text-[10px] text-on-surface font-semibold">Red Critical (&gt;100 mm Deflection)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-4 h-2.5 rounded-xs bg-[#ffd6ac] border border-[#845412]"></span>
+<span class="text-[10px] text-on-surface">Amber Caution (25 - 100 mm)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-4 h-2.5 rounded-xs bg-[#c4e1f6] border border-[#466273]"></span>
+<span class="text-[10px] text-on-surface">Blue/Green Nominal (&lt;25 mm Stable)</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5 pt-1 border-t border-surface-container-high">
+<div class="w-3.5 h-3.5 rounded-full bg-surface-container-lowest border border-on-surface flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant">Telemetry Borehole Sensor</span>
+</div>
+</div>
+</div>
+<!-- Right Docked Sensor Inspector Card (Pin Focus Panel) -->
+<div class="absolute top-16 right-6 z-30 w-80 max-w-[90vw] bg-surface-container-lowest/95 backdrop-blur-md rounded-2xl shadow-xl border border-surface-container p-space-md flex flex-col gap-3 transition-all duration-300" id="inspector-card" style="max-height: 480px; overflow-y: auto;">
+<!-- Inspector Card Header -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-mono text-base font-bold text-on-surface" id="inspect-id">N128</span>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-mono text-[10px] font-bold uppercase tracking-wider" id="inspect-tag">
+                Critical Breach
+              </span>
+</div>
+<span class="font-headline-lg text-xs font-semibold text-on-surface mt-0.5" id="inspect-title">
+              MPBX-04 • Multipoint Extensometer
+            </span>
+</div>
+<button class="p-1 rounded-lg hover:bg-surface-container text-on-surface-variant transition" id="close-inspector">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Location & Depth Stratigraphy -->
+<div class="bg-surface-container-low p-2.5 rounded-xl border border-surface-container flex flex-col gap-1 text-[11px] font-mono">
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Location:</span>
+<span class="text-on-surface font-medium text-right" id="inspect-loc">Shaft Sector 04 Longwall Rib</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Collar RL / Anchor:</span>
+<span class="text-on-surface font-medium" id="inspect-depth">+248.5m / -125.0m</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Mesh Gateway:</span>
+<span class="text-primary font-medium">GW-NORTH-01 (LoRa 868MHz)</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Signal Link (RSSI):</span>
+<span class="text-on-surface font-medium">-72 dBm • 99.4% Uplink</span>
+</div>
+</div>
+<!-- Displacement Telemetry Metrics -->
+<div class="grid grid-cols-2 gap-2 font-mono">
+<div class="bg-surface-container p-2 rounded-xl border border-surface-container-highest/60">
+<span class="text-[9px] uppercase tracking-wider text-outline block">Cumulative Z</span>
+<span class="text-base font-bold text-error" id="inspect-val-main">-138.4 mm</span>
+<span class="text-[9px] text-error font-medium block mt-0.5">Threshold: ±50.0mm</span>
+</div>
+<div class="bg-surface-container p-2 rounded-xl border border-surface-container-highest/60">
+<span class="text-[9px] uppercase tracking-wider text-outline block">Velocity Rate</span>
+<span class="text-base font-bold text-error" id="inspect-val-rate">+6.2 mm/d</span>
+<span class="text-[9px] text-tertiary font-medium block mt-0.5">Accelerating</span>
+</div>
+</div>
+<!-- Inline SVG Sparkline -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-mono text-[10px] text-on-surface-variant">
+<span class="">24h Subsidence Waveform</span>
+<span class="text-error font-semibold">-14.8mm in 12h</span>
+</div>
+<div class="w-full h-12 bg-surface-container-low border border-surface-container rounded-lg p-1.5 flex items-end">
+<svg class="w-full h-full overflow-visible" viewBox="0 0 200 40">
+<path d="M 0 32 Q 30 30, 60 27 T 110 22 T 150 14 T 200 3" fill="none" stroke="#ba1a1a" stroke-width="2.5"></path>
+<line stroke="#ffdad6" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="200" y1="18" y2="18"></line>
+<circle cx="200" cy="3" fill="#ba1a1a" r="3.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Geotechnical Inspector Action Buttons -->
+<div class="flex flex-col gap-1.5 pt-1">
+<button class="w-full py-1.5 px-3 bg-error text-on-error rounded-lg font-label-md text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm hover:brightness-110 transition">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span class="">Dispatch Ground Inspection Team</span>
+</button>
+<div class="grid grid-cols-2 gap-1.5">
+<button class="py-1 px-2 bg-surface-container hover:bg-surface-container-high rounded text-on-surface font-label-md text-[11px] font-medium transition text-center border border-surface-container-highest">
+              Recalibrate Zero
+            </button>
+<button class="py-1 px-2 bg-primary-container text-on-primary-container hover:bg-primary-fixed-dim rounded font-label-md text-[11px] font-medium transition text-center flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">table_chart</span> Raw CSV
+            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Client-side Interactive Behavior Script -->
+<script>
+    (function initGISConsole() {
+      const sensorDb = {
+        'N128': {
+          id: 'N128',
+          tag: 'MPBX-04',
+          name: 'MPBX-04 • Multipoint Extensometer',
+          status: 'Critical Breach',
+          statusClass: 'bg-error-container text-on-error-container',
+          loc: 'Shaft Sector 04 Longwall Rib',
+          depth: '+248.5m / -125.0m',
+          valMain: '-138.4 mm',
+          valRate: '+6.2 mm/d',
+          valColor: 'text-error'
+        },
+        'N126': {
+          id: 'N126',
+          tag: 'TLT-02',
+          name: 'TLT-02 • Subsurface Tiltmeter Array',
+          status: 'High Risk',
+          statusClass: 'bg-tertiary-container text-on-tertiary-container',
+          loc: 'Substation Perimeter Batter Slope',
+          depth: '+278.4m / Surface',
+          valMain: '+1.12 mm/m',
+          valRate: '-41.2 mm creep',
+          valColor: 'text-tertiary'
+        },
+        'N114': {
+          id: 'N114',
+          tag: 'PZ-07',
+          name: 'PZ-07 • Vibrating Wire Piezometer',
+          status: 'Nominal',
+          statusClass: 'bg-primary-container text-on-primary-container',
+          loc: 'Confined Aquifer Intercept H2',
+          depth: '+184.2m / -88.0m',
+          valMain: '1.48 MPa',
+          valRate: '±0.02 MPa/d',
+          valColor: 'text-primary'
+        },
+        'N102': {
+          id: 'N102',
+          tag: 'GNSS-09',
+          name: 'GNSS-09 • RTK Dual-Frequency Rover',
+          status: 'Nominal',
+          statusClass: 'bg-primary-container text-on-primary-container',
+          loc: 'Crown Pillar Ridge Bench Station',
+          depth: '+310.2m / Pillar Crest',
+          valMain: '-3.2 mm Z',
+          valRate: '+0.1 mm/d',
+          valColor: 'text-primary'
+        }
+      };
+
+      const inspector = document.getElementById('inspector-card');
+      const inspectId = document.getElementById('inspect-id');
+      const inspectTag = document.getElementById('inspect-tag');
+      const inspectTitle = document.getElementById('inspect-title');
+      const inspectLoc = document.getElementById('inspect-loc');
+      const inspectDepth = document.getElementById('inspect-depth');
+      const inspectValMain = document.getElementById('inspect-val-main');
+      const inspectValRate = document.getElementById('inspect-val-rate');
+
+      function selectSensor(id) {
+        const data = sensorDb[id];
+        if (!data) return;
+
+        inspector.classList.remove('hidden');
+        inspectId.textContent = data.id;
+        inspectTag.textContent = data.status;
+        inspectTag.className = 'px-2 py-0.5 rounded font-mono text-[10px] font-bold uppercase tracking-wider ' + data.statusClass;
+        inspectTitle.textContent = data.name;
+        inspectLoc.textContent = data.loc;
+        inspectDepth.textContent = data.depth;
+        inspectValMain.textContent = data.valMain;
+        inspectValMain.className = 'text-base font-bold ' + data.valColor;
+        inspectValRate.textContent = data.valRate;
+        inspectValRate.className = 'text-base font-bold ' + data.valColor;
+
+        document.querySelectorAll('.sensor-list-card').forEach(card => {
+          if (card.getAttribute('data-sensor-id') === id) {
+            card.classList.add('ring-2', 'ring-primary', 'bg-surface-container-low');
+          } else {
+            card.classList.remove('ring-2', 'ring-primary', 'bg-surface-container-low');
+          }
+        });
+      }
+
+      document.querySelectorAll('.sensor-list-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const id = card.getAttribute('data-sensor-id');
+          selectSensor(id);
+        });
+      });
+
+      ['N128', 'N126', 'N114', 'N102'].forEach(id => {
+        const pin = document.getElementById('pin-' + id);
+        if (pin) {
+          pin.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectSensor(id);
+          });
+        }
+      });
+
+      const closeBtn = document.getElementById('close-inspector');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          inspector.classList.add('hidden');
+        });
+      }
+
+      const meshButtons = document.querySelectorAll('.mesh-filter-btn');
+      meshButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          meshButtons.forEach(b => {
+            b.classList.remove('bg-primary', 'text-on-primary');
+            b.classList.add('bg-surface-container', 'text-on-surface');
+          });
+          btn.classList.add('bg-primary', 'text-on-primary');
+          btn.classList.remove('bg-surface-container', 'text-on-surface');
+        });
+      });
+
+      const recenterBtn = document.getElementById('btn-recenter');
+      if (recenterBtn) {
+        recenterBtn.addEventListener('click', () => {
+          selectSensor('N128');
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>

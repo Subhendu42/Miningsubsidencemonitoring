@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>TerraSync // GeoTelemetry Console</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;font-family:'Inter',sans-serif;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-highest": "#ffddb8",
+          "surface-container": "#ffead7",
+          "on-tertiary-fixed": "#171c24",
+          "surface-container-low": "#fff1e6",
+          "surface-container-lowest": "#ffffff",
+          "on-surface-variant": "#44464f",
+          "on-primary-fixed-variant": "#334671",
+          "primary-container": "#8294c4",
+          "surface-container-high": "#ffe4c8",
+          "inverse-primary": "#b3c6f8",
+          "error": "#ba1a1a",
+          "on-error-container": "#93000a",
+          "surface-dim": "#ffd2a0",
+          "outline": "#757780",
+          "surface-variant": "#ffddb8",
+          "on-secondary-fixed": "#141936",
+          "surface-bright": "#fff8f4",
+          "primary-fixed": "#d9e2ff",
+          "on-background": "#2a1700",
+          "on-secondary": "#ffffff",
+          "tertiary-fixed-dim": "#c2c6d1",
+          "on-tertiary-container": "#292e36",
+          "tertiary-container": "#90959f",
+          "error-container": "#ffdad6",
+          "on-tertiary-fixed-variant": "#424750",
+          "inverse-on-surface": "#ffeede",
+          "on-secondary-container": "#585d7e",
+          "on-primary-fixed": "#031943",
+          "on-tertiary": "#ffffff",
+          "secondary-fixed-dim": "#bfc4ea",
+          "on-primary": "#ffffff",
+          "surface-tint": "#4b5d8a",
+          "on-surface": "#2a1700",
+          "on-error": "#ffffff",
+          "on-secondary-fixed-variant": "#3f4564",
+          "background": "#fff8f4",
+          "secondary-fixed": "#dee1ff",
+          "tertiary-fixed": "#dee2ed",
+          "on-primary-container": "#192c56",
+          "primary-fixed-dim": "#b3c6f8",
+          "secondary": "#575c7d",
+          "surface": "#fff8f4",
+          "secondary-container": "#d3d8fe",
+          "tertiary": "#5a5f68",
+          "inverse-surface": "#462a02",
+          "outline-variant": "#c5c6d0",
+          "primary": "#8294c4",
+          "primary-dark": "#4b5d8a"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "gutter": "1rem",
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem",
+          "margin": "1.5rem",
+          "space-sm": "0.5rem",
+          "space-xl": "2rem",
+          "space-md": "1rem"
+        },
+        "fontFamily": {
+          "sans": ["Inter", "sans-serif"],
+          "label-sm": ["Inter", "sans-serif"],
+          "headline-lg": ["Inter", "sans-serif"],
+          "body-md": ["Inter", "sans-serif"]
+        },
+        "fontSize": {
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      },
+    },
+  }
+</script></head><body class="bg-surface font-sans text-on-surface min-h-screen selection:bg-primary-container selection:text-white"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface/95 backdrop-blur-md shadow-xs border-b border-surface-dim/70 flex items-center justify-between px-4 lg:px-6"><div class="flex items-center gap-6 shrink-0"><div class="flex items-center gap-3"><img alt="TerraSync Geospatial Sub-surface Telemetry Logo" class="h-8 w-auto object-contain rounded" src="https://lh3.googleusercontent.com/aida/AEtjO1VojGsmeF1SLlp8_O0B3cqBNBz1w5ZAZJwIbz5P_0oR1ylROeYy4L3UlPD96kuMPkVHC-bMnaqrexpWsqqKCZJKzxKr64yC5sqnM7CiQr4eaweCyyNFiNE83VDToCCAyCt50-rDj3VXm7Xc7qwfrNFgL8lg34hZY0tgroZoMgO2F8OM4wUzScFcm6I4qArNYCPyxFsp8oQAAQ03PUqttMPrgRJuNMzIWTsX1ACm7lFdZ-SV8JYBSKVw0tc0"/><div class="flex flex-col"><span class="text-sm font-bold tracking-tight text-on-surface uppercase font-sans">TERRASYNC // GEOTELEMETRY</span><span class="text-[10px] text-on-surface-variant tracking-wider flex items-center gap-1.5 font-medium"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>Mesh: 99.8% Online • Sync: 2s ago</span></div></div><div class="h-6 w-px bg-surface-dim hidden sm:block"></div><button class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-surface-dim/80 hover:border-primary text-xs text-on-surface transition-colors shadow-2xs"><span class="material-symbols-outlined text-[16px] text-primary">layers</span><span class="font-medium text-[11px]">Shaft Sector 04 - Longwall North</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></button></div><nav class="hidden xl:flex items-center gap-1.5 shrink-0" data-active-classes="bg-primary text-white font-semibold"><a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="live-monitoring-dashboard-terrasync-terra-theme" href="#">Live Dashboard</a><a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="gis-spatial-map-sensor-fleet-geolocation-terrasync" href="#">GIS Map</a><a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="sensor-fleet" href="#">Sensor Fleet</a><a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="data-collected" href="#">Data Collected</a><a class="px-3 py-1.5 rounded-lg border border-red-200 bg-red-50 text-xs font-bold text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors flex items-center gap-1.5 shadow-2xs" data-path="emergency" href="#"><span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>Emergency</a><a class="px-3 py-1.5 rounded-lg border border-primary bg-primary text-white font-semibold text-xs shadow-xs transition-colors" data-path="admin-config-terrasync" href="#">Admin &amp; Config</a></nav><div class="flex items-center gap-3 shrink-0"><button class="relative p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors border border-transparent hover:border-surface-dim"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 ring-2 ring-surface"></span></button><button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block border border-transparent hover:border-surface-dim"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-semibold shadow-xs"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></header><div><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-9">
+<!-- Header & Subnav Area -->
+<header class="flex flex-col gap-4">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumbs" class="flex flex-wrap items-center gap-2 text-xs text-on-surface-variant font-medium">
+<span>Basin North</span>
+<span class="material-symbols-outlined text-[14px] text-surface-dim">chevron_right</span>
+<span>Sub-Terra Division</span>
+<span class="material-symbols-outlined text-[14px] text-surface-dim">chevron_right</span>
+<span class="text-on-surface font-semibold">Sector 04 Longwall</span>
+<span class="material-symbols-outlined text-[14px] text-surface-dim">chevron_right</span>
+<span class="text-primary-dark font-semibold">System Administration &amp; Platform Configuration</span>
+</nav>
+<!-- Title & Quick Actions Row -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+<div class="flex flex-col gap-1.5 max-w-3xl">
+<div class="flex items-center gap-3">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high border border-surface-dim text-on-surface text-[11px] font-semibold tracking-wide">
+              ADMIN KERNEL 04
+            </span>
+<span class="flex items-center gap-1.5 text-xs text-emerald-700 font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              System Status: Nominal (v2.8.4)
+            </span>
+</div>
+<h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-on-surface">
+            Admin Console &amp; System Configuration
+          </h1>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+            Manage geotechnical authorized personnel, role permissions, LoRaWAN telemetry network parameters, and navigation dispatch routing.
+          </p>
+</div>
+<!-- Quick actions -->
+<div class="flex flex-wrap items-center gap-3 shrink-0">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-lowest border border-surface-dim hover:bg-surface-container-low text-on-surface text-xs font-semibold transition-all shadow-2xs" id="btn-export-audit">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
+<span>Export Audit Trail</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary-dark text-white text-xs font-semibold transition-all shadow-xs" id="btn-add-user">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Add New User</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SECTION 1: Quick Dispatch & Page Redirection Hub -->
+<section class="flex flex-col gap-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">alt_route</span>
+<h2 class="text-lg font-bold text-on-surface">Quick Dispatch &amp; Page Redirection</h2>
+</div>
+<span class="text-xs font-medium text-on-surface-variant hidden sm:inline-block">5 Core Modules Linked</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5">
+<!-- Card 1: Live Monitoring -->
+<div class="group flex flex-col justify-between p-4 rounded-xl bg-surface-container-lowest border border-surface-dim/70 hover:border-primary/60 hover:shadow-sm transition-all duration-200">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-lg bg-surface-container-low text-primary-dark">
+<span class="material-symbols-outlined text-[20px]">insights</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-medium">
+                Active Stream • 20 Nodes
+              </span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-on-surface group-hover:text-primary-dark transition-colors">
+                Live Monitoring Dashboard
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                Real-time subsidence tracking, AI forecast models, and alarm matrix.
+              </p>
+</div>
+</div>
+<button class="mt-4 flex items-center justify-between text-xs font-semibold text-primary-dark hover:text-primary group-hover:translate-x-0.5 transition-all pt-2 border-t border-surface-container-low" onclick="dispatchNavigate('live-monitoring-dashboard-terrasync-terra-theme', 'Live Monitoring Dashboard')">
+<span>Jump to Live Dashboard</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<!-- Card 2: GIS Spatial Heatmap -->
+<div class="group flex flex-col justify-between p-4 rounded-xl bg-surface-container-lowest border border-surface-dim/70 hover:border-primary/60 hover:shadow-sm transition-all duration-200">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-lg bg-surface-container-low text-amber-800">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-medium">
+                RTK Fixed (±4mm)
+              </span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-on-surface group-hover:text-primary-dark transition-colors">
+                GIS Spatial Heatmap
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                High-resolution satellite topography, borehole coordinates, and strata overlays.
+              </p>
+</div>
+</div>
+<button class="mt-4 flex items-center justify-between text-xs font-semibold text-primary-dark hover:text-primary group-hover:translate-x-0.5 transition-all pt-2 border-t border-surface-container-low" onclick="dispatchNavigate('gis-spatial-map-sensor-fleet-geolocation-terrasync', 'GIS Spatial Heatmap')">
+<span>Open GIS Map</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<!-- Card 3: Sensor Fleet -->
+<div class="group flex flex-col justify-between p-4 rounded-xl bg-surface-container-lowest border border-surface-dim/70 hover:border-red-300 hover:shadow-sm transition-all duration-200">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-lg bg-red-50 text-red-600">
+<span class="material-symbols-outlined text-[20px]">sensors</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200 text-[10px] font-bold animate-pulse">
+                2 Critical Breaches
+              </span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-on-surface group-hover:text-red-600 transition-colors">
+                Sensor Fleet &amp; Warning
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                MPBX extensometers, tiltmeters, pore transducers, and gateway telemetry.
+              </p>
+</div>
+</div>
+<button class="mt-4 flex items-center justify-between text-xs font-semibold text-red-600 hover:text-red-700 group-hover:translate-x-0.5 transition-all pt-2 border-t border-surface-container-low" onclick="dispatchNavigate('sensor-fleet', 'Sensor Fleet &amp; Early Warning')">
+<span>View Sensor Fleet</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<!-- Card 4: Data Collected -->
+<div class="group flex flex-col justify-between p-4 rounded-xl bg-surface-container-lowest border border-surface-dim/70 hover:border-primary/60 hover:shadow-sm transition-all duration-200">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-lg bg-surface-container-low text-secondary">
+<span class="material-symbols-outlined text-[20px]">table_chart</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant border border-surface-dim/70 text-[10px] font-medium">
+                1.42M Records Synced
+              </span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-on-surface group-hover:text-primary-dark transition-colors">
+                Data Collected &amp; Logs
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                Raw telemetry streams, Fourier spectral analysis, and seismic packets.
+              </p>
+</div>
+</div>
+<button class="mt-4 flex items-center justify-between text-xs font-semibold text-primary-dark hover:text-primary group-hover:translate-x-0.5 transition-all pt-2 border-t border-surface-container-low" onclick="dispatchNavigate('data-collected', 'Data Collected &amp; Geotechnical Logs')">
+<span>Access Data Logs</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+<!-- Card 5: Emergency Dispatch -->
+<div class="group flex flex-col justify-between p-4 rounded-xl bg-surface-container-lowest border border-surface-dim/70 hover:border-red-300 hover:shadow-sm transition-all duration-200">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2 rounded-lg bg-red-50 text-red-600">
+<span class="material-symbols-outlined text-[20px]">emergency</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 border border-red-200 text-[10px] font-bold">
+                SLA: 14m Auto-Escalation
+              </span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-on-surface group-hover:text-red-600 transition-colors">
+                Emergency &amp; Dispatch
+              </h3>
+<p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                Evacuation triggers, SMS/Radio broadcast matrix, and underground sirens.
+              </p>
+</div>
+</div>
+<button class="mt-4 flex items-center justify-between text-xs font-semibold text-red-600 hover:text-red-700 group-hover:translate-x-0.5 transition-all pt-2 border-t border-surface-container-low" onclick="dispatchNavigate('emergency', 'Emergency &amp; Dispatch Protocol')">
+<span>Configure Emergency</span>
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- SECTION 2: User Management & Access Control Matrix -->
+<section class="flex flex-col gap-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">admin_panel_settings</span>
+<h2 class="text-lg font-bold text-on-surface">Authorized Geotechnical Personnel</h2>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs text-on-surface-variant font-medium">Active Sessions: <strong class="text-on-surface font-semibold">4 / 18</strong></span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-dim"></span>
+<span class="text-xs text-primary-dark font-medium">SSO: Okta Enterprise Synced</span>
+</div>
+</div>
+<!-- Search and Filter Bar -->
+<div class="flex flex-col lg:flex-row gap-3 justify-between items-stretch lg:items-center bg-surface-container-low border border-surface-dim/70 p-3 rounded-xl">
+<div class="relative flex-1 max-w-lg">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-on-surface-variant">search</span>
+<input class="w-full pl-9 pr-4 py-2 text-xs rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant/70 border border-surface-dim/80 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors" id="user-search-input" placeholder="Search users by name, email, badge ID, or access level..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-1.5" id="filter-pills-container">
+<button class="filter-pill active px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-white shadow-2xs transition-colors" data-filter="all">
+            All Users (18)
+          </button>
+<button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-container-lowest border border-surface-dim/80 hover:bg-surface-container text-on-surface transition-colors" data-filter="engineer">
+            Geotechnical Engineers (6)
+          </button>
+<button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-container-lowest border border-surface-dim/80 hover:bg-surface-container text-on-surface transition-colors" data-filter="director">
+            Mine Safety Directors (3)
+          </button>
+<button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-container-lowest border border-surface-dim/80 hover:bg-surface-container text-on-surface transition-colors" data-filter="operator">
+            Site Operators (7)
+          </button>
+<button class="filter-pill px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-container-lowest border border-surface-dim/80 hover:bg-surface-container text-on-surface transition-colors" data-filter="admin">
+            System Admins (2)
+          </button>
+</div>
+</div>
+<!-- Main Layout: Table + Detail Drawer -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-5 items-start">
+<!-- Table Column (8 cols on XL) -->
+<div class="xl:col-span-8 flex flex-col overflow-hidden rounded-xl bg-surface-container-lowest border border-surface-dim/80 shadow-2xs">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs">
+<thead class="bg-surface-container-low/80 text-on-surface-variant uppercase text-[11px] font-semibold tracking-wider border-b border-surface-dim select-none">
+<tr>
+<th class="py-3 px-4" scope="col">User Details</th>
+<th class="py-3 px-3" scope="col">System Role</th>
+<th class="py-3 px-3" scope="col">Clearance</th>
+<th class="py-3 px-3" scope="col">Status &amp; IP</th>
+<th class="py-3 px-3" scope="col">2FA</th>
+<th class="py-3 px-4 text-right" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-dim/40 text-on-surface" id="user-table-body">
+<!-- User 1: Dr. Marcus Vance -->
+<tr class="user-row hover:bg-surface-container-low/50 transition-colors cursor-pointer bg-surface-container-low/70" data-category="engineer admin" data-user-id="ts-8841" onclick="selectUser('ts-8841')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+                        MV
+                      </div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-on-surface text-sm truncate flex items-center gap-1.5">
+                          Dr. Marcus Vance
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600" title="Online Active"></span>
+</span>
+<span class="text-on-surface-variant text-[11px] truncate">m.vance@terrasync-geo.com</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="font-medium text-on-surface">Lead Admin / Geo-Approver</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="px-2 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 text-[10px] font-semibold whitespace-nowrap">
+                      Level 4 (Full System &amp; Siren)
+                    </span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="font-semibold text-emerald-700 text-[11px]">Active (Logged In)</span>
+<span class="text-on-surface-variant text-[10px]">GW IP: 10.42.0.8</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 text-[11px] text-emerald-700 font-medium">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+                      YubiKey
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Editing Marcus Vance...')" title="Edit Details">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Managing Permissions: Level 4')" title="Permissions">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+</button>
+<button class="p-1 rounded hover:bg-red-50 text-red-600" onclick="event.stopPropagation(); triggerToast('Session reset token sent to IP 10.42.0.8')" title="Reset Session">
+<span class="material-symbols-outlined text-[16px]">power_settings_new</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 2: Elena Rostova -->
+<tr class="user-row hover:bg-surface-container-low/50 transition-colors cursor-pointer" data-category="engineer" data-user-id="ts-9014" onclick="selectUser('ts-9014')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+                        ER
+                      </div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-on-surface text-sm truncate">Elena Rostova</span>
+<span class="text-on-surface-variant text-[11px] truncate">e.rostova@terrasync-geo.com</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="font-medium text-on-surface">Geotechnical Analyst</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container border border-surface-dim text-on-surface text-[10px] font-semibold whitespace-nowrap">
+                      Level 3 (Calibration)
+                    </span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium text-[11px]">Active</span>
+<span class="text-on-surface-variant text-[10px]">12m ago • 10.42.0.19</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 text-[11px] text-emerald-700 font-medium">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                      Enabled
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Editing Elena Rostova...')" title="Edit Details">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Managing Permissions: Level 3')" title="Permissions">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 3: Tariq Al-Mansoor -->
+<tr class="user-row hover:bg-surface-container-low/50 transition-colors cursor-pointer" data-category="director" data-user-id="ts-4310" onclick="selectUser('ts-4310')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+                        TM
+                      </div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-on-surface text-sm truncate flex items-center gap-1.5">
+                          Tariq Al-Mansoor
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600" title="On Shift"></span>
+</span>
+<span class="text-on-surface-variant text-[11px] truncate">t.mansoor@terrasync-geo.com</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="font-medium text-on-surface">Site Incident Commander</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="px-2 py-0.5 rounded bg-red-100 border border-red-300 text-red-800 text-[10px] font-semibold whitespace-nowrap">
+                      Level 4 (Emergency Trigger)
+                    </span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="font-semibold text-emerald-700 text-[11px]">Active (On Shift)</span>
+<span class="text-on-surface-variant text-[10px]">Shaft 04 Terminal</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 text-[11px] text-emerald-700 font-medium">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                      Enabled
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Editing Tariq Al-Mansoor...')" title="Edit Details">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Emergency clearance verified: Level 4')" title="Permissions">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 4: Sarah Jenkins -->
+<tr class="user-row hover:bg-surface-container-low/50 transition-colors cursor-pointer" data-category="operator admin" data-user-id="ts-6629" onclick="selectUser('ts-6629')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+                        SJ
+                      </div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-on-surface text-sm truncate">Sarah Jenkins</span>
+<span class="text-on-surface-variant text-[11px] truncate">s.jenkins@terrasync-geo.com</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="font-medium text-on-surface">Hardware &amp; Gateway Admin</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container border border-surface-dim text-on-surface text-[10px] font-semibold whitespace-nowrap">
+                      Level 2 (Hardware Config)
+                    </span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium text-[11px]">Active</span>
+<span class="text-on-surface-variant text-[10px]">Relay GW-01</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 text-[11px] text-emerald-700 font-medium">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                      Enabled
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Editing Sarah Jenkins...')" title="Edit Details">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Managing Permissions: Level 2')" title="Permissions">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- User 5: David Kim -->
+<tr class="user-row hover:bg-surface-container-low/50 transition-colors cursor-pointer bg-red-50/40" data-category="operator" data-user-id="ts-1902" onclick="selectUser('ts-1902')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-red-100 border border-red-300 text-red-700 flex items-center justify-center font-bold text-xs shrink-0">
+                        DK
+                      </div>
+<div class="flex flex-col min-w-0">
+<span class="font-bold text-on-surface text-sm truncate opacity-75">David Kim</span>
+<span class="text-on-surface-variant text-[11px] truncate">d.kim@terrasync-geo.com</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="font-medium text-on-surface-variant">Field Observer / Read Only</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container border border-surface-dim text-on-surface-variant text-[10px] font-semibold whitespace-nowrap">
+                      Level 1 (View &amp; Export)
+                    </span>
+</td>
+<td class="py-3.5 px-3">
+<div class="flex flex-col">
+<span class="font-semibold text-red-600 text-[11px]">Suspended</span>
+<span class="text-on-surface-variant text-[10px]">Review pending</span>
+</div>
+</td>
+<td class="py-3.5 px-3">
+<span class="inline-flex items-center gap-1 text-[11px] text-red-600 font-medium">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                      Disabled
+                    </span>
+</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="px-2 py-1 rounded bg-surface-container border border-surface-dim hover:bg-primary hover:text-white text-[10px] font-semibold transition-colors" onclick="event.stopPropagation(); triggerToast('Security override required to reactivate #TS-1902')">
+                        Reactivate
+                      </button>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface" onclick="event.stopPropagation(); triggerToast('Editing David Kim...')" title="Edit Details">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-4 py-2.5 bg-surface-container-low border-t border-surface-dim/70 text-xs text-on-surface-variant font-medium flex items-center justify-between">
+<span>Showing 5 of 18 Personnel in Database</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-surface-dim/70 transition-colors disabled:opacity-40" disabled="">Previous</button>
+<span class="px-2.5 py-1 rounded bg-primary text-white font-semibold">Page 1</span>
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-surface-dim/70 hover:bg-surface-container transition-colors" onclick="triggerToast('Loading additional audit logs...')">Next</button>
+</div>
+</div>
+</div>
+<!-- Detail Drawer Card (4 cols on XL) -->
+<div class="xl:col-span-4 flex flex-col gap-4 p-5 rounded-xl bg-surface-container-lowest border border-surface-dim/80 shadow-2xs" id="user-detail-card">
+<div class="flex items-center justify-between pb-2 border-b border-surface-dim/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+<h3 class="text-xs font-bold text-on-surface uppercase tracking-wider">Personnel Profile</h3>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary-dark font-mono text-[11px] font-semibold border border-surface-dim" id="card-badge-id">
+              TS-8841
+            </span>
+</div>
+<div class="flex items-center gap-3.5 py-1">
+<div class="w-13 h-13 w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-base font-sans shadow-xs shrink-0" id="card-avatar">
+              MV
+            </div>
+<div class="flex flex-col min-w-0">
+<h4 class="text-base font-bold text-on-surface" id="card-name">Dr. Marcus Vance</h4>
+<span class="text-xs text-primary-dark font-semibold" id="card-role">Chief Geotechnical Engineer</span>
+<span class="text-xs text-on-surface-variant truncate" id="card-email">m.vance@terrasync-geo.com</span>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-2 pt-1 text-xs">
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-surface-dim/60 flex flex-col gap-0.5">
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Department &amp; Specialization</span>
+<span class="font-semibold text-on-surface" id="card-dept">Strata Mechanics &amp; Sub-Surface Geodesy</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-surface-dim/60 flex flex-col gap-0.5">
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Assigned Operational Sector</span>
+<span class="font-semibold text-on-surface" id="card-sector">Sector 04 Longwall North (Shaft 04)</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-surface-dim/60 flex flex-col gap-0.5">
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Access Clearance Level</span>
+<span class="font-semibold text-primary-dark" id="card-clearance">Level 4 — Complete Mesh Command &amp; Underground Siren Override</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-surface-dim/60 flex flex-col gap-0.5">
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">30-Day Activity Audit</span>
+<div class="flex items-center justify-between mt-0.5">
+<span class="text-on-surface font-semibold" id="card-audit">142 Logins past 30 days</span>
+<span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-medium">0 Anomalies</span>
+</div>
+</div>
+</div>
+<!-- YubiKey / Hardware Token Status -->
+<div class="p-2.5 rounded-lg bg-surface-container border border-surface-dim/70 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">key</span>
+<span class="text-on-surface font-medium">Hardware 2FA Key</span>
+</div>
+<span class="text-on-surface-variant font-semibold text-[11px]">YubiKey 5 NFC (#YB-774)</span>
+</div>
+<!-- Card Actions -->
+<div class="flex flex-col gap-2 pt-1">
+<button class="w-full py-2 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-dim text-on-surface text-xs font-semibold flex items-center justify-center gap-2 transition-colors" onclick="triggerToast('Opening full audit history for TS-8841...')">
+<span class="material-symbols-outlined text-[16px]">history</span>
+              View Full User Audit Trail
+            </button>
+<button class="w-full py-2 px-3 rounded-lg bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors" onclick="triggerToast('Revoking permissions requires Multi-Sign confirmation')">
+<span class="material-symbols-outlined text-[16px]">block</span>
+              Revoke Sector 04 Permissions
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Telemetry Gateway & Network Configuration -->
+<section class="flex flex-col gap-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">settings_input_antenna</span>
+<h2 class="text-lg font-bold text-on-surface">Telemetry Gateway &amp; Network Configuration</h2>
+</div>
+<button class="self-start sm:self-auto flex items-center gap-2 px-3.5 py-2 rounded-lg bg-primary hover:bg-primary-dark text-white text-xs font-semibold transition-all shadow-xs" onclick="triggerToast('Configuration sync pushed to 4 Sub-Surface Repeaters')">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+          Push Config to Mesh
+        </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+<!-- Config Card 1: LoRaWAN Sub-GHz Mesh -->
+<div class="flex flex-col p-5 rounded-xl bg-surface-container-lowest border border-surface-dim/80 shadow-2xs">
+<div class="flex items-center justify-between pb-3 border-b border-surface-dim/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">router</span>
+<h3 class="text-sm font-bold text-on-surface">LoRaWAN Sub-GHz Mesh</h3>
+</div>
+<span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">ONLINE</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed my-3">
+            Sub-surface relay backbone communicating across 3.4km of subterranean strata at Sector 04.
+          </p>
+<div class="flex flex-col gap-2 text-xs">
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Uplink Frequency</span>
+<span class="font-bold text-on-surface">868.1 MHz</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Bandwidth</span>
+<span class="font-bold text-on-surface">125 kHz</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Spreading Factor</span>
+<span class="font-bold text-primary-dark">SF7 - SF10 Adaptive</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Gateway Master</span>
+<span class="font-bold text-on-surface">GW-NORTH-01</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Sync Interval</span>
+<span class="font-bold text-primary-dark">1000 ms</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between text-xs text-on-surface-variant border-t border-surface-dim/60">
+<span>Mesh Packet Drop: <strong class="text-emerald-700">0.02%</strong></span>
+<button class="text-primary-dark font-semibold hover:underline" onclick="triggerToast('Spectrum analyzer calibrated')">Calibrate</button>
+</div>
+</div>
+<!-- Config Card 2: AI Prediction Thresholds & Triggers -->
+<div class="flex flex-col p-5 rounded-xl bg-surface-container-lowest border border-surface-dim/80 shadow-2xs">
+<div class="flex items-center justify-between pb-3 border-b border-surface-dim/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">psychology</span>
+<h3 class="text-sm font-bold text-on-surface">AI Prediction Thresholds</h3>
+</div>
+<span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-bold">ACTIVE ML</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed my-3">
+            Heuristic inverse-velocity model trigger settings for early slope &amp; longwall collapse detection.
+          </p>
+<div class="flex flex-col gap-2 text-xs">
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Inverse Velocity Alert</span>
+<span class="font-bold text-red-600">5.0 mm/d</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Max Allowable Subsidence</span>
+<span class="font-bold text-red-600">100.0 mm</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Anomaly Cutoff Confidence</span>
+<span class="font-bold text-on-surface">95.0%</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Regression Kernel</span>
+<span class="font-bold text-on-surface">Gaussian RBF (v4.2)</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Auto-Evac Broadcast</span>
+<span class="font-bold text-primary-dark">Armed (Stage 3)</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between text-xs text-on-surface-variant border-t border-surface-dim/60">
+<span>Model Loss: <strong class="text-emerald-700">0.0014 RMSE</strong></span>
+<button class="text-primary-dark font-semibold hover:underline" onclick="triggerToast('Re-training model with last 48hr geotechnical data...')">Re-Train</button>
+</div>
+</div>
+<!-- Config Card 3: Audit & Security Logging -->
+<div class="flex flex-col p-5 rounded-xl bg-surface-container-lowest border border-surface-dim/80 shadow-2xs">
+<div class="flex items-center justify-between pb-3 border-b border-surface-dim/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">security</span>
+<h3 class="text-sm font-bold text-on-surface">Audit &amp; Security Logging</h3>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface border border-surface-dim text-[10px] font-bold">COMPLIANT</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed my-3">
+            Regulatory sub-surface compliance retention and cryptographic chain of custody verification.
+          </p>
+<div class="flex flex-col gap-2 text-xs">
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Retention Mandate</span>
+<span class="font-bold text-on-surface">7 Yrs (ISO 18674)</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Encryption at Rest</span>
+<span class="font-bold text-primary-dark">AES-256-GCM</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Real-Time SIEM Forward</span>
+<span class="font-bold text-primary-dark">Enabled (Splunk)</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Immutability Proofs</span>
+<span class="font-bold text-on-surface">SHA-512 Merkle</span>
+</div>
+<div class="flex justify-between items-center py-1.5 px-3 rounded-lg bg-surface-container-low border border-surface-dim/50">
+<span class="text-on-surface-variant">Geotechnical Signature</span>
+<span class="font-bold text-on-surface">Ed25519 Verified</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between text-xs text-on-surface-variant border-t border-surface-dim/60">
+<span>Storage Used: <strong class="text-on-surface">412.8 GB</strong></span>
+<button class="text-primary-dark font-semibold hover:underline" onclick="triggerToast('Validating SHA-512 cryptographic ledger...')">Verify Hashes</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Additional System Metadata Footer Bar -->
+<div class="p-3.5 rounded-xl bg-surface-container-lowest border border-surface-dim/80 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-on-surface-variant shadow-2xs">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-emerald-600 text-[18px]">verified</span>
+<span>Mining Safety &amp; Health Administration (MSHA) Class 1 Div 1 Certified System Architecture</span>
+</div>
+<div class="flex items-center gap-3">
+<span>Hardware Clocks: <strong class="text-on-surface font-semibold">PTP IEEE-1588v2 Synced</strong></span>
+<span class="text-surface-dim">•</span>
+<span>Local Core Node: <strong class="text-on-surface font-semibold">LONGWALL-SECT04-SRV1</strong></span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Quick Dispatch navigation router
+  function dispatchNavigate(targetPath, sectionName) {
+    const navLink = document.querySelector(`nav a[data-path="${targetPath}"]`);
+    if (navLink) {
+      navLink.click();
+    } else {
+      triggerToast(`Navigating to ${sectionName}...`);
+    }
+  }
+
+  // Toast notification helper
+  function triggerToast(message) {
+    const container = document.getElementById('telemetry-toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = "flex items-center gap-3 px-4 py-3 rounded-xl bg-on-surface text-surface shadow-lg text-xs pointer-events-auto transform translate-y-2 transition-all duration-300 ease-out";
+    toast.innerHTML = `
+      <span class="material-symbols-outlined text-primary text-[18px]">terminal</span>
+      <span class="flex-1 font-medium">${message}</span>
+      <button class="opacity-70 hover:opacity-100" onclick="this.parentElement.remove()"><span class="material-symbols-outlined text-[16px]">close</span></button>
+    `;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.remove('translate-y-2');
+    }, 10);
+
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-2');
+      setTimeout(() => toast.remove(), 300);
+    }, 3500);
+  }
+
+  // User database mock for dynamic drawer preview
+  const userData = {
+    'ts-8841': {
+      name: 'Dr. Marcus Vance',
+      initials: 'MV',
+      role: 'Chief Geotechnical Engineer',
+      email: 'm.vance@terrasync-geo.com',
+      badge: 'TS-8841',
+      dept: 'Strata Mechanics & Sub-Surface Geodesy',
+      sector: 'Sector 04 Longwall North (Shaft 04)',
+      clearance: 'Level 4 — Complete Mesh Command & Underground Siren Override',
+      audit: '142 Logins past 30 days',
+      avatarBg: 'bg-primary',
+      avatarFg: 'text-white'
+    },
+    'ts-9014': {
+      name: 'Elena Rostova',
+      initials: 'ER',
+      role: 'Senior Seismologist & Analyst',
+      email: 'e.rostova@terrasync-geo.com',
+      badge: 'TS-9014',
+      dept: 'Micro-Seismic Monitoring & Waveform Inversion',
+      sector: 'Sector 04 Fault Zone East',
+      clearance: 'Level 3 — Model & Sensor Calibration Access',
+      audit: '98 Logins past 30 days',
+      avatarBg: 'bg-secondary',
+      avatarFg: 'text-white'
+    },
+    'ts-4310': {
+      name: 'Tariq Al-Mansoor',
+      initials: 'TM',
+      role: 'Mine Operations Superintendent',
+      email: 't.mansoor@terrasync-geo.com',
+      badge: 'TS-4310',
+      dept: 'Sub-Terra Operations & Personnel Safety',
+      sector: 'Shaft 04 / Central Gallery',
+      clearance: 'Level 4 — Emergency Dispatch Trigger & Radio Net Override',
+      audit: '215 Logins past 30 days',
+      avatarBg: 'bg-red-600',
+      avatarFg: 'text-white'
+    },
+    'ts-6629': {
+      name: 'Sarah Jenkins',
+      initials: 'SJ',
+      role: 'Telemetry & LoRa Systems Tech',
+      email: 's.jenkins@terrasync-geo.com',
+      badge: 'TS-6629',
+      dept: 'Sub-GHz Telemetry Infrastructure',
+      sector: 'Relay Nodes North 01-16',
+      clearance: 'Level 2 — Hardware Configuration & OTA Firmware Updates',
+      audit: '84 Logins past 30 days',
+      avatarBg: 'bg-primary-container',
+      avatarFg: 'text-white'
+    },
+    'ts-1902': {
+      name: 'David Kim',
+      initials: 'DK',
+      role: 'Junior Field Geologist',
+      email: 'd.kim@terrasync-geo.com',
+      badge: 'TS-1902',
+      dept: 'Exploration Core Logging',
+      sector: 'Borehole Array Delta-3',
+      clearance: 'Level 1 — View & Export Only (Account Suspended)',
+      audit: '12 Logins past 30 days',
+      avatarBg: 'bg-red-100 border border-red-300',
+      avatarFg: 'text-red-700'
+    }
+  };
+
+  // Select user in drawer
+  function selectUser(id) {
+    const user = userData[id];
+    if (!user) return;
+
+    // Highlight row
+    document.querySelectorAll('.user-row').forEach(row => {
+      row.classList.remove('bg-surface-container-low/70', 'ring-1', 'ring-primary');
+      if (row.dataset.userId === id) {
+        row.classList.add('bg-surface-container-low/70');
+      }
+    });
+
+    // Populate drawer elements
+    document.getElementById('card-badge-id').innerText = user.badge;
+    document.getElementById('card-name').innerText = user.name;
+    document.getElementById('card-avatar').innerText = user.initials;
+    document.getElementById('card-avatar').className = `w-12 h-12 rounded-full ${user.avatarBg} ${user.avatarFg} flex items-center justify-center font-bold text-base shadow-xs shrink-0`;
+    document.getElementById('card-role').innerText = user.role;
+    document.getElementById('card-email').innerText = user.email;
+    document.getElementById('card-dept').innerText = user.dept;
+    document.getElementById('card-sector').innerText = user.sector;
+    document.getElementById('card-clearance').innerText = user.clearance;
+    document.getElementById('card-audit').innerText = user.audit;
+
+    triggerToast(`Viewing personnel profile: ${user.name} (${user.badge})`);
+  }
+
+  // Filter pills interaction
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.filter-pill').forEach(p => {
+        p.classList.remove('bg-primary', 'text-white');
+        p.classList.add('bg-surface-container-lowest', 'text-on-surface');
+      });
+      this.classList.remove('bg-surface-container-lowest', 'text-on-surface');
+      this.classList.add('bg-primary', 'text-white');
+
+      const filter = this.dataset.filter;
+      const rows = document.querySelectorAll('.user-row');
+
+      rows.forEach(row => {
+        if (filter === 'all' || row.dataset.category.includes(filter)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // User search filter
+  const searchInput = document.getElementById('user-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase().trim();
+      const rows = document.querySelectorAll('.user-row');
+
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        if (text.includes(query)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  // Top action buttons
+  document.getElementById('btn-add-user')?.addEventListener('click', () => {
+    triggerToast('Opening personnel provisioning modal...');
+  });
+
+  document.getElementById('btn-export-audit')?.addEventListener('click', () => {
+    triggerToast('Generating encrypted ISO 18674 compliance report...');
+  });
+</script></main></div>
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none max-w-md w-full px-4 sm:px-0" id="telemetry-toast-container"></div>
+</body></html>
