@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta content="web_dashboard" name="shell-type"/>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TerraSync // GeoTelemetry Emergency Console</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-secondary-fixed": "#141936",
+          "surface-tint": "#4b5d8a",
+          "primary-container": "#8294c4",
+          "on-error": "#ffffff",
+          "tertiary-fixed": "#dee2ed",
+          "on-background": "#2a1700",
+          "outline-variant": "#c5c6d0",
+          "secondary-fixed": "#dee1ff",
+          "surface-dim": "#ffd2a0",
+          "on-primary-fixed-variant": "#334671",
+          "on-secondary": "#ffffff",
+          "background": "#fff8f4",
+          "surface-bright": "#fff8f4",
+          "tertiary-fixed-dim": "#c2c6d1",
+          "on-tertiary-container": "#292e36",
+          "on-secondary-fixed-variant": "#3f4564",
+          "surface-container": "#ffead7",
+          "on-surface": "#2a1700",
+          "error": "#ba1a1a",
+          "surface-variant": "#ffddb8",
+          "tertiary": "#5a5f68",
+          "surface": "#fff8f4",
+          "error-container": "#ffdad6",
+          "secondary": "#575c7d",
+          "outline": "#757780",
+          "on-surface-variant": "#44464f",
+          "secondary-container": "#d3d8fe",
+          "on-tertiary-fixed": "#171c24",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-high": "#ffe4c8",
+          "primary-fixed": "#d9e2ff",
+          "inverse-primary": "#b3c6f8",
+          "secondary-fixed-dim": "#bfc4ea",
+          "primary": "#4b5d8a",
+          "inverse-surface": "#462a02",
+          "surface-container-highest": "#ffddb8",
+          "on-error-container": "#93000a",
+          "tertiary-container": "#90959f",
+          "on-tertiary": "#ffffff",
+          "on-tertiary-fixed-variant": "#424750",
+          "surface-container-low": "#fff1e6",
+          "on-secondary-container": "#585d7e",
+          "on-primary": "#ffffff",
+          "primary-fixed-dim": "#b3c6f8",
+          "inverse-on-surface": "#ffeede",
+          "on-primary-container": "#192c56",
+          "on-primary-fixed": "#031943"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "gutter": "1rem",
+          "margin": "1.5rem",
+          "space-md": "1rem",
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem",
+          "space-xl": "2rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "sans": ["Inter", "sans-serif"],
+          "body-md": ["Inter", "sans-serif"],
+          "label-sm": ["Inter", "sans-serif"],
+          "label-md": ["Inter", "sans-serif"],
+          "headline-lg": ["Inter", "sans-serif"],
+          "mono": ["JetBrains Mono", "monospace"]
+        },
+        "fontSize": {
+          "body-md": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "fontWeight": "400"
+            }
+          ],
+          "label-sm": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "500"
+            }
+          ],
+          "label-md": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-lg": [
+            "32px",
+            {
+              "lineHeight": "40px",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      }
+    }
+  }
+</script></head>
+<body class="bg-background font-body-md text-on-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface/95 backdrop-blur-md shadow-xs border-b border-surface-container-high flex items-center justify-between px-4 lg:px-6">
+<div class="flex items-center gap-6 shrink-0">
+<div class="flex items-center gap-3">
+<img alt="TerraSync Geospatial Sub-surface Telemetry Logo" class="h-8 w-auto object-contain rounded" src="https://lh3.googleusercontent.com/aida/AEtjO1VojGsmeF1SLlp8_O0B3cqBNBz1w5ZAZJwIbz5P_0oR1ylROeYy4L3UlPD96kuMPkVHC-bMnaqrexpWsqqKCZJKzxKr64yC5sqnM7CiQr4eaweCyyNFiNE83VDToCCAyCt50-rDj3VXm7Xc7qwfrNFgL8lg34hZY0tgroZoMgO2F8OM4wUzScFcm6I4qArNYCPyxFsp8oQAAQ03PUqttMPrgRJuNMzIWTsX1ACm7lFdZ-SV8JYBSKVw0tc0"/>
+<div class="flex flex-col">
+<span class="text-sm font-headline-lg font-bold tracking-tight text-on-surface uppercase">TERRASYNC // GEOTELEMETRY</span>
+<span class="text-[10px] text-primary font-mono tracking-wider flex items-center gap-1.5 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>Mesh: 99.8% Online • Sync: 2s ago
+        </span>
+</div>
+</div>
+<div class="h-6 w-px bg-outline-variant/60 hidden sm:block"></div>
+<button class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-surface-container-highest hover:border-outline text-xs text-on-surface transition-colors shadow-2xs">
+<span class="material-symbols-outlined text-[16px] text-primary">layers</span>
+<span class="font-medium font-mono text-[11px]">Shaft Sector 04 - Longwall North</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+</button>
+</div>
+<nav class="hidden xl:flex items-center gap-1 shrink-0">
+<a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="live-monitoring-dashboard-terrasync-terra-theme" href="#">Live Dashboard</a>
+<a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="gis-spatial-map-sensor-fleet-geolocation-terrasync" href="#">GIS Map</a>
+<a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="sensor-fleet" href="#">Sensor Fleet</a>
+<a class="px-3 py-1.5 rounded-lg border border-transparent text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="data-collected" href="#">Data Collected</a>
+<a class="px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-xs font-bold text-error hover:bg-red-100 transition-colors flex items-center gap-1.5 shadow-2xs" data-path="emergency" href="#">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>Emergency
+    </a>
+<a class="px-3 py-1.5 rounded-lg border border-surface-container-highest bg-surface-container-lowest text-on-surface hover:bg-surface-container font-medium text-xs transition-colors" data-path="admin-config-terrasync" href="#">Admin &amp; Config</a>
+</nav>
+<div class="flex items-center gap-3 shrink-0">
+<button class="relative p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors border border-transparent">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block border border-transparent">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-semibold shadow-xs">
+<span class="material-symbols-outlined text-white text-[18px]">person</span>
+</div>
+</div>
+</header>
+<div>
+<main class="w-full pt-16 bg-background min-h-screen">
+<div class="flex flex-col w-full">
+<!-- Interactive Return Header & Breadcrumb Strip -->
+<section class="w-full bg-surface-container-low px-4 sm:px-6 lg:px-8 py-3.5 border-b border-surface-container-high shadow-2xs">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<a class="group inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-high transition-all shadow-2xs border border-surface-container-high" href="#" onclick="window.history.back(); return false;">
+<span class="material-symbols-outlined text-[18px] text-primary group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+<span class="font-label-md text-xs sm:text-sm text-primary font-semibold">Return to Live Dashboard</span>
+</a>
+<span class="text-outline-variant font-mono text-xs">/</span>
+<div class="flex items-center gap-2 font-mono text-xs bg-surface-container px-2.5 py-1 rounded-lg border border-surface-container-highest">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="text-on-surface-variant font-medium">SECTOR:</span>
+<span class="text-on-surface font-bold">Shaft 04 - Longwall North (Sub-level 420m)</span>
+</div>
+</div>
+<div class="flex items-center gap-3 font-mono text-xs text-on-surface-variant">
+<span class="inline-flex items-center gap-1.5 text-error font-semibold bg-red-100/70 border border-red-200 px-2.5 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-[15px] text-error">warning</span>
+          DEFCON LEVEL 3
+        </span>
+<span class="hidden md:inline text-outline-variant">•</span>
+<span class="hidden md:inline">Telemetry Lock: <strong class="text-on-surface font-mono">0.42s latency</strong></span>
+<span class="hidden md:inline text-outline-variant">•</span>
+<span class="text-secondary font-mono">UTC: <span id="telemetry-clock">--:--:--</span></span>
+</div>
+</div>
+</section>
+<!-- Emergency Critical Status Hero Banner -->
+<section class="w-full bg-surface-container px-4 sm:px-6 lg:px-8 py-6">
+<div class="max-w-7xl mx-auto">
+<div class="bg-surface-container-lowest rounded-xl p-5 sm:p-7 shadow-sm border border-surface-container-highest relative overflow-hidden">
+<!-- Structural warning indicator bar -->
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-error via-amber-500 to-error"></div>
+<div class="absolute -right-8 -top-8 w-48 h-48 rounded-full bg-error/5 blur-2xl pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+<div class="space-y-3 max-w-3xl">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error text-on-error font-mono text-xs font-bold uppercase tracking-wider shadow-sm animate-pulse">
+<span class="material-symbols-outlined text-[16px]">e911_emergency</span>
+                CRITICAL SUBSIDENCE ALARM
+              </span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container-low text-on-surface font-mono text-xs font-medium border border-surface-container-highest">
+                NODE: N128 MPBX-04
+              </span>
+<span class="px-2.5 py-1 rounded-md bg-error-container text-on-error-container font-mono text-xs font-medium border border-error/20">
+                DISPLACEMENT: -138.4 mm (&gt;100.0 mm THRESHOLD)
+              </span>
+</div>
+<h1 class="font-headline-lg text-2xl sm:text-3xl text-on-surface font-bold tracking-tight">
+              Emergency Protocol Level 3 Activated // Sector 04
+            </h1>
+<p class="font-body-md text-sm sm:text-base text-on-surface-variant leading-relaxed">
+              Multipoint borehole extensometer <code class="bg-surface-container-low px-1.5 py-0.5 rounded font-mono text-xs text-on-surface font-semibold border border-surface-container-highest">MPBX-04</code> detects runaway accelerated rib convergence (+6.2 mm/day). Underground geotechnical safety envelope breached. Automated perimeter sirens armed.
+            </p>
+</div>
+<!-- Countdown and Urgent Action CTA Box -->
+<div class="flex flex-col items-start lg:items-end justify-between bg-surface-container-low border border-surface-container-highest rounded-xl p-4 sm:p-5 shadow-2xs min-w-[280px]">
+<div class="text-left lg:text-right w-full mb-3">
+<div class="text-[11px] font-mono uppercase tracking-wider text-secondary font-bold flex items-center gap-1.5 lg:justify-end">
+<span class="material-symbols-outlined text-[14px] text-error">timer</span>
+                Auto Evac Broadcast SLA
+              </div>
+<div class="font-mono text-3xl font-bold text-error tracking-tight mt-0.5" id="evac-timer">
+                13:32
+              </div>
+<div class="text-[11px] font-mono text-on-surface-variant">until autonomous surface horns engage</div>
+</div>
+<div class="flex flex-wrap gap-2 w-full">
+<button class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-error text-on-error hover:bg-error-container hover:text-on-error-container font-label-md text-sm font-bold shadow-sm transition-all" id="siren-btn" onclick="triggerEvacuationSiren()">
+<span class="material-symbols-outlined text-[18px]">campaign</span>
+                BROADCAST SIREN
+              </button>
+<button class="px-3 py-2.5 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-dim font-label-md text-sm font-semibold transition-all border border-surface-container-highest" id="mute-btn" onclick="toggleAudibleStrobe()">
+<span class="material-symbols-outlined text-[18px]">volume_off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Telemetry Ribbon / Quick Diagnostics Summary -->
+<div class="mt-6 pt-5 grid grid-cols-2 sm:grid-cols-4 gap-3 bg-surface-container-low rounded-lg p-3 border border-surface-container-high">
+<div class="space-y-0.5">
+<span class="text-[11px] font-mono text-secondary uppercase block font-medium">Rate of Strain</span>
+<span class="font-mono font-bold text-error text-sm sm:text-base">+6.2 mm/d</span>
+<span class="text-[10px] font-mono text-on-surface-variant block">Critical Threshold: 1.5</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[11px] font-mono text-secondary uppercase block font-medium">Inverse Velocity</span>
+<span class="font-mono font-bold text-on-surface text-sm sm:text-base">0.161 d/mm</span>
+<span class="text-[10px] font-mono text-error font-medium block">Approaching 0 (Singularity)</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[11px] font-mono text-secondary uppercase block font-medium">Mesh Gateway</span>
+<span class="font-mono font-bold text-primary text-sm sm:text-base">GW-NORTH-01</span>
+<span class="text-[10px] font-mono text-primary font-medium block">20/20 Nodes Online</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[11px] font-mono text-secondary uppercase block font-medium">Personnel Down-hole</span>
+<span class="font-mono font-bold text-on-surface text-sm sm:text-base">14 Miners (RFID Active)</span>
+<span class="text-[10px] font-mono text-secondary block">Refuge Chamber 04 Clear</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Body Content: Dispatch Cards + Telemetry & AI Diagnostic Engines -->
+<div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<!-- Rapid Dispatch & Contact Grid -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<h2 class="font-headline-lg text-xl sm:text-2xl text-on-surface font-semibold">Priority Underground Dispatch &amp; Safety Response</h2>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant">Immediate dedicated escalation channels for on-site mine control and medical extraction.</p>
+</div>
+<span class="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-primary bg-primary-fixed/60 border border-primary/20 px-3 py-1 rounded-full font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          Emergency Comms Matrix: Armed
+        </span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Mine Safety Team Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-highest flex flex-col justify-between relative overflow-hidden">
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">shield_person</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-lg font-bold text-on-surface">Mine Geotechnical &amp; Safety Team</h3>
+<p class="font-mono text-xs text-secondary">Operational Unit: Sub-surface Sector 04 Control</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 font-mono text-xs text-primary bg-primary-fixed/70 px-2.5 py-1 rounded-md font-semibold border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                ACTIVE
+              </span>
+</div>
+<!-- Officer Profile Preview -->
+<div class="bg-surface-container-low rounded-lg p-3.5 flex items-center gap-4 border border-surface-container-high">
+<img class="w-12 h-12 rounded-lg object-cover shadow-2xs" data-alt="Close-up professional portrait of Marcus Sterling, senior geotechnical safety director wearing a safety hardhat and reflective gear inside an industrial mine command center with monitors in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKo4cjzUUq4UoRb_gR_0t2lvBUskWlMm6_KmbHkISjkt1EYXfE2r5_X9xKabKv-hiMrH-rrjflsbGAARZq_TuvJC0MwzCzpt7LtT23RK-C_3UqPP9Zb2OyknfSLFO4_AZaMTeJMQgEsQSgniEXYQ0DsD2Gj1YhrRJ4RoivTPe8mmWEuufbjg5HCCeXugD9kpJM3RjPnSuiPK52o8C3-8UawXS34W4Mk3465ZhUaK1cqjeblFTr3QDKxA"/>
+<div class="space-y-0.5">
+<div class="font-label-md text-sm font-bold text-on-surface">Marcus Sterling, PE</div>
+<div class="font-mono text-xs text-on-surface-variant">Safety Director • Badge #MS-092</div>
+<div class="font-mono text-[11px] text-secondary">Location: Stationed at Portal B North Station</div>
+</div>
+</div>
+<div class="space-y-2 bg-surface-container-low p-3 rounded-lg font-mono text-xs border border-surface-container-high">
+<div class="flex justify-between items-center text-on-surface">
+<span class="text-secondary font-medium">Tactical UHF Channel:</span>
+<span class="font-bold">UHF Channel 04 (Sub-surface Tac)</span>
+</div>
+<div class="flex justify-between items-center text-on-surface">
+<span class="text-secondary font-medium">Priority Speed Dial:</span>
+<span class="font-bold text-primary">1-800-MINE-SAFE (Ext. 401)</span>
+</div>
+<div class="flex justify-between items-center text-on-surface">
+<span class="text-secondary font-medium">Radio Status:</span>
+<span class="text-primary font-semibold">Online &amp; Monitoring Repeater 04-B</span>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-xs font-semibold shadow-2xs transition-all" onclick="simulateAction('Calling Director Marcus Sterling via PTT Tactical Radio...', 'success')">
+<span class="material-symbols-outlined text-[16px]">radio</span>
+              Direct PTT Call
+            </button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="simulateAction('Incident SMS alert dispatched to all Sector 04 Marshals.', 'info')">
+<span class="material-symbols-outlined text-[16px]">sms</span>
+              Incident SMS
+            </button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="simulateAction('Deploying 6 Field Safety Marshals to Shaft 04 North Headframe.', 'warning')">
+<span class="material-symbols-outlined text-[16px]">group_add</span>
+              Dispatch Marshals
+            </button>
+</div>
+</div>
+<!-- Emergency Response Team (ERT & Paramedics) Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-highest flex flex-col justify-between relative overflow-hidden">
+<div class="space-y-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-error-container text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">medical_services</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-lg font-bold text-on-surface">Emergency Response &amp; Paramedics</h3>
+<p class="font-mono text-xs text-secondary">Rapid Mine Extraction &amp; Trauma Readiness</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 font-mono text-xs text-error bg-error-container px-2.5 py-1 rounded-md font-semibold border border-error/20">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+                STANDBY-1
+              </span>
+</div>
+<!-- Heavy Extraction Vehicle & Unit Preview -->
+<div class="bg-surface-container-low rounded-lg p-3.5 flex items-center gap-4 border border-surface-container-high">
+<img class="w-12 h-12 rounded-lg object-cover shadow-2xs" data-alt="Mine rescue emergency vehicle and technical rescue team suited up with oxygen apparatus outside mine hoist portal at dawn in industrial setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1KxzPH-4ymjKZ0JzBp3KMGqHgyVJAHmRJckfF2-S463IgVsonPlhXDnjpIf5kWOKUcOhD9p-lS5oGJyfEnGDHzsgXmjAVUsmkSsSeUIB-VH-Xkj7dRKYzlBqad-NYMqnDI0nYdeP5EYHINJlWpLq_2maHerKmLfUlUijLytUQUouVTC056_7z2tNbkVOQ2eH7BhO56lOXm74DcHL-YfofckNueTfb-6lvMO0JTXwWBL56wIibrb3M4Q"/>
+<div class="space-y-0.5">
+<div class="font-label-md text-sm font-bold text-on-surface">ERT Squadron Alpha-7 &amp; Flight Paramedics</div>
+<div class="font-mono text-xs text-on-surface-variant">Heavy Extraction Team • Leader: Capt. D. Vance</div>
+<div class="font-mono text-[11px] text-secondary">Location: Shaft 04 Surface Hoist Building</div>
+</div>
+</div>
+<div class="space-y-2 bg-surface-container-low p-3 rounded-lg font-mono text-xs border border-surface-container-high">
+<div class="flex justify-between items-center text-on-surface">
+<span class="text-secondary font-medium">Emergency Red Phone:</span>
+<span class="font-bold text-error">#911-MINE (Direct Surface Line)</span>
+</div>
+<div class="flex justify-between items-center text-on-surface">
+<span class="text-secondary font-medium">Extraction Tactical VHF:</span>
+<span class="font-bold">VHF Tac-1 (154.280 MHz)</span>
+</div>
+<div class="flex justify-between items-center text-on-surface">
+<span class="text-secondary font-medium">Ready Evacuation Rig:</span>
+<span class="text-primary font-semibold">Cage Capsule 02 In-Position (Ready)</span>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-error text-on-error hover:bg-error-container hover:text-on-error-container font-label-md text-xs font-semibold shadow-2xs transition-all" onclick="simulateAction('ERT Siren dispatched! Red Alert triggered at Shaft Headframe.', 'error')">
+<span class="material-symbols-outlined text-[16px]">alarm</span>
+              Trigger ERT Siren
+            </button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="simulateAction('Transmitting Sub-level GPS Vector 420m (Northing 8112.4, Easting 4991.2) to Medical Flight Dispatch.', 'info')">
+<span class="material-symbols-outlined text-[16px]">share_location</span>
+              Send GPS to Med
+            </button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="simulateAction('Evacuation Transport Rig C-2 mobilized to Portal North.', 'warning')">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span>
+              Mobilize Evac
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Diagnostic Suite: AI Failure Prediction + LoRa Telemetry Mesh -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<h2 class="font-headline-lg text-xl sm:text-2xl text-on-surface font-semibold">Underground Diagnostic &amp; Integrity Suite</h2>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant">Real-time geotechnical deep neural network inference and LoRa industrial telemetry mesh diagnostics.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-md bg-surface-container-high text-on-surface font-mono text-xs font-medium border border-surface-container-highest">Self-Audit: OK</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Panel A: Diagnose AI Prediction Model -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-highest flex flex-col justify-between space-y-6">
+<div class="space-y-4">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">psychology</span>
+<h3 class="font-headline-lg text-lg font-bold text-on-surface">Heuristic &amp; Deep RBF Neural Model</h3>
+</div>
+<div class="font-mono text-xs text-on-surface-variant">Model ID: <span class="text-on-surface font-semibold">GEO-RBF-LSTM v4.2.8 // Inverse-Velocity Solver</span></div>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-primary font-mono text-xs font-bold border border-primary/20">CALIBRATED</span>
+</div>
+<!-- Visual Neural Convergence Sparkline (Inline SVG) -->
+<div class="bg-surface-container-low rounded-lg p-4 space-y-3 border border-surface-container-high">
+<div class="flex items-center justify-between font-mono text-xs">
+<span class="text-secondary uppercase font-semibold">Model Convergence Loss &amp; Velocity Singularity</span>
+<span class="text-error font-bold">RMSE: 0.0014 (Over-threshold)</span>
+</div>
+<div class="w-full h-16 flex items-center">
+<svg class="w-full h-14 overflow-visible" preserveaspectratio="none" viewbox="0 0 400 60">
+<!-- Threshold Grid Lines -->
+<line opacity="0.4" stroke="#c5c6d0" stroke-dasharray="3,3" stroke-width="1" x1="0" x2="400" y1="45" y2="45"></line>
+<line opacity="0.6" stroke="#ffdad6" stroke-dasharray="2,2" stroke-width="1" x1="0" x2="400" y1="20" y2="20"></line>
+<!-- Displacement curve approaching singularity -->
+<path d="M0,50 Q100,48 180,44 T260,35 T320,20 T360,10 T400,2" fill="none" stroke="#ba1a1a" stroke-width="2.5"></path>
+<!-- Normal projection baseline -->
+<path d="M0,52 C120,51 250,49 400,46" fill="none" opacity="0.5" stroke="#4b5d8a" stroke-dasharray="4,3" stroke-width="1.5"></path>
+<!-- Singularity Point Marker -->
+<circle cx="400" cy="2" fill="#ba1a1a" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between font-mono text-[10px] text-secondary">
+<span>T - 24 hrs (Stable)</span>
+<span>T - 12 hrs</span>
+<span>T - 4 hrs (Accelerating)</span>
+<span class="text-error font-bold">Current (Singularity)</span>
+</div>
+</div>
+<!-- Real-time Diagnostic Telemetry Grid -->
+<div class="grid grid-cols-2 gap-3 font-mono text-xs">
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Inference Latency</span>
+<span class="font-bold text-on-surface text-sm">12 ms</span>
+<span class="text-primary text-[10px] block">Within 50ms SLA</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Anomaly Confidence</span>
+<span class="font-bold text-error text-sm">98.4%</span>
+<span class="text-error text-[10px] block">High Risk Confirmed</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Failure Mechanism</span>
+<span class="font-bold text-on-surface text-xs">Rib Shear &amp; Floor Heave</span>
+<span class="text-secondary text-[10px] block">Mode: Planar Shear</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Predicted Failure Horizon</span>
+<span class="font-bold text-error text-sm">4.8 ± 1.2 hrs</span>
+<span class="text-on-surface-variant text-[10px] block">Probability: P(F) = 0.94</span>
+</div>
+</div>
+<!-- Terminal / Output Log for AI Diagnostic -->
+<div class="bg-on-background text-primary-fixed rounded-lg p-3 font-mono text-xs space-y-1 overflow-x-auto shadow-inner">
+<div class="flex items-center justify-between text-outline-variant text-[11px] pb-1 border-b border-surface-variant/20">
+<span>AI_DIAG_CONSOLE &gt; LOG_STREAM</span>
+<span class="text-primary-fixed-dim" id="ai-status-indicator">MODEL: STANDBY</span>
+</div>
+<div class="text-[11px] leading-relaxed text-surface-container-lowest/80 max-h-24 overflow-y-auto space-y-0.5 pt-1" id="ai-log">
+<div>[08:42:01] Loading input tensors: 8 Borehole Extensometers + 4 Piezometers.</div>
+<div>[08:42:02] Fukuzono Inverse-velocity slope computed: -0.012 d^-1.</div>
+<div>[08:42:03] WARNING: Gradient exceeds safety threshold theta_crit (0.85).</div>
+</div>
+</div>
+</div>
+<!-- AI Action Controls -->
+<div class="pt-2 flex flex-wrap gap-2">
+<button class="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" id="ai-test-btn" onclick="runAiDiagnostic()">
+<span class="material-symbols-outlined text-[16px] text-primary">play_circle</span>
+              Run Model Self-Test
+            </button>
+<button class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="recalibrateModel()">
+<span class="material-symbols-outlined text-[16px] text-primary-container">tune</span>
+              Recalibrate Heuristics
+            </button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="simulateAction('AI Diagnostic Log export generated: GEO_AI_AUDIT_SEC04.json', 'info')">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+              Export Logs
+            </button>
+</div>
+</div>
+<!-- Panel B: Diagnose Telemetry Mesh Network -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-highest flex flex-col justify-between space-y-6">
+<div class="space-y-4">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">hub</span>
+<h3 class="font-headline-lg text-lg font-bold text-on-surface">LoRa Sub-GHz Industrial Mesh</h3>
+</div>
+<div class="font-mono text-xs text-on-surface-variant">Protocol: <span class="text-on-surface font-semibold">LoRaWAN 868.1 MHz Geotechnical Topology</span></div>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-primary font-mono text-xs font-bold border border-primary/20">20/20 RESPONSIVE</span>
+</div>
+<!-- Mesh Topology Status Overview with Visual Node Rings -->
+<div class="bg-surface-container-low rounded-lg p-4 space-y-3 border border-surface-container-high">
+<div class="flex items-center justify-between font-mono text-xs">
+<span class="text-secondary uppercase font-semibold">Network Propagation &amp; Signal Quality</span>
+<span class="text-primary font-bold">PER: 0.02% (Optimal)</span>
+</div>
+<!-- Node Health Grid Indicators -->
+<div class="grid grid-cols-10 gap-1.5 py-1">
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-01 (Headframe Master)">01</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-02 (Shaft 04-A)">02</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-03 (Shaft 04-B)">03</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-04 (Repeater North)">04</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-05 (Longwall Rib 1)">05</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-06 (Longwall Rib 2)">06</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-07 (Roof Sag Extensometer)">07</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-08 (Tilt Sensor T-12)">08</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-09 (Tilt Sensor T-14)">09</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-10 (Piezometer P-01)">10</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-11 (Piezometer P-02)">11</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-12 (Convergence Point C-01)">12</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-13 (Convergence Point C-02)">13</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-14 (Crackmeter K-08)">14</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-15 (Seismic Geophone SG-1)">15</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-16 (Seismic Geophone SG-2)">16</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-17 (Gateway Bridge-17)">17</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-18 (Refuge Bay Sensor)">18</div>
+<div class="h-6 rounded bg-primary text-on-primary font-mono text-[9px] flex items-center justify-center font-bold" title="N-19 (MPBX-03 Anchor)">19</div>
+<div class="h-6 rounded bg-error text-on-error font-mono text-[9px] flex items-center justify-center font-bold ring-2 ring-error animate-pulse" title="N-20 (MPBX-04 ALERT NODE)">20</div>
+</div>
+<div class="flex justify-between items-center font-mono text-[11px] text-on-surface-variant pt-1">
+<span>Active Master: <strong class="text-on-surface font-mono">GW-NORTH-01</strong></span>
+<span class="text-error font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                  Node 20 (MPBX-04) In Alarm
+                </span>
+</div>
+</div>
+<!-- RF Parameters -->
+<div class="grid grid-cols-2 gap-3 font-mono text-xs">
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Uplink RSSI / SNR</span>
+<span class="font-bold text-on-surface text-sm">-72 dBm <span class="text-primary font-normal text-xs">/ +9.2 dB</span></span>
+<span class="text-primary text-[10px] block">High Link Margin (&gt;20 dB)</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Repeater Hops</span>
+<span class="font-bold text-on-surface text-sm">2 Hops via REP-04-B</span>
+<span class="text-on-surface-variant text-[10px] block">Round-trip: 142 ms</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Spreading Factor (SF)</span>
+<span class="font-bold text-on-surface text-sm">SF7 (Adaptive ADR)</span>
+<span class="text-on-surface-variant text-[10px] block">Airtime: 51.5 ms / packet</span>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<span class="text-secondary text-[11px] block font-medium">Battery Reserves</span>
+<span class="font-bold text-primary text-sm">3.61 V (LiSOCl2)</span>
+<span class="text-on-surface-variant text-[10px] block">Estimated: 4.2 years left</span>
+</div>
+</div>
+<!-- Mesh Terminal Snippet -->
+<div class="bg-on-background text-primary-fixed rounded-lg p-3 font-mono text-xs space-y-1 overflow-x-auto shadow-inner">
+<div class="flex items-center justify-between text-outline-variant text-[11px] pb-1 border-b border-surface-variant/20">
+<span>LORAWAN_MESH_TERMINAL // SEC-04</span>
+<span class="text-primary-fixed-dim" id="mesh-ping-status">LINK IDLE</span>
+</div>
+<div class="text-[11px] leading-relaxed text-surface-container-lowest/80 max-h-24 overflow-y-auto space-y-0.5 pt-1" id="mesh-terminal">
+<div>[GW-01] Polling uplink beacon on 868.100 MHz SF7BW125...</div>
+<div>[GW-01] Received payload from DevAddr 0x2601A940 (MPBX-04).</div>
+<div>[GW-01] CRC Check: PASSED. Fcnt: 14289. Frame size: 32 bytes.</div>
+</div>
+</div>
+</div>
+<!-- Mesh Controls -->
+<div class="pt-2 flex flex-wrap gap-2">
+<button class="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" id="ping-mesh-btn" onclick="pingMeshNetwork()">
+<span class="material-symbols-outlined text-[16px] text-primary">sensors</span>
+              Ping All 20 Nodes
+            </button>
+<button class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="rerouteGateway()">
+<span class="material-symbols-outlined text-[16px] text-primary">alt_route</span>
+              Reroute to Sec GW
+            </button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-dim font-label-md text-xs font-semibold transition-all border border-surface-container-highest" onclick="boostSpreadingFactor()">
+<span class="material-symbols-outlined text-[16px] text-secondary">signal_cellular_alt</span>
+              Force SF12 Boost
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Sub-surface Evacuation Protocol Checklist & Safe Haven Status -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-surface-container-highest space-y-5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-lg font-bold text-on-surface">Sector 04 Sub-surface Evacuation Checklist</h2>
+<p class="font-body-md text-sm text-on-surface-variant">Standard Operating Procedure: Level 3 Rapid Ingress &amp; Withdrawal Protocol</p>
+</div>
+<div class="flex items-center gap-2 font-mono text-xs">
+<span class="bg-surface-container-low border border-surface-container-highest px-2.5 py-1 rounded text-on-surface font-medium">3 of 5 Steps Complete</span>
+<span class="text-primary font-bold">60% Prepared</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+<div class="bg-surface-container-low rounded-lg p-3 space-y-1.5 border border-surface-container-high">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold text-primary">STEP 01</span>
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+</div>
+<div class="font-label-md text-xs font-bold text-on-surface">Automated Alerts</div>
+<p class="text-[11px] text-on-surface-variant">Geo-telemetry threshold notification dispatched to Ops Room.</p>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 space-y-1.5 border border-surface-container-high">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold text-primary">STEP 02</span>
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+</div>
+<div class="font-label-md text-xs font-bold text-on-surface">Power Isolation</div>
+<p class="text-[11px] text-on-surface-variant">Sector 04 High-Voltage 11kV longwall feeder de-energized.</p>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 space-y-1.5 border border-surface-container-high">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold text-primary">STEP 03</span>
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+</div>
+<div class="font-label-md text-xs font-bold text-on-surface">RFID Rollcall</div>
+<p class="text-[11px] text-on-surface-variant">14/14 Miners accounted for inside Tagging Perimeter.</p>
+</div>
+<div class="bg-surface-container-high rounded-lg p-3 space-y-1.5 border border-red-200">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold text-error">STEP 04</span>
+<span class="material-symbols-outlined text-[18px] text-error animate-spin">sync</span>
+</div>
+<div class="font-label-md text-xs font-bold text-on-surface">Siren Activation</div>
+<p class="text-[11px] text-on-surface-variant">Manual confirmation pending or auto-broadcast in 13 min.</p>
+</div>
+<div class="bg-surface-container-high/60 rounded-lg p-3 space-y-1.5 opacity-70 border border-surface-container-highest">
+<div class="flex items-center justify-between">
+<span class="font-mono text-xs font-bold text-secondary">STEP 05</span>
+<span class="material-symbols-outlined text-[18px] text-outline">pending</span>
+</div>
+<div class="font-label-md text-xs font-bold text-on-surface">Shaft Extraction</div>
+<p class="text-[11px] text-on-surface-variant">Final hoist carriage hoist-out to Portal Surface North.</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Inline Script for Realistic Mission-Critical Micro-Interactions -->
+<script>
+    (function () {
+      // Live UTC Telemetry Clock
+      function updateUtcClock() {
+        const el = document.getElementById('telemetry-clock');
+        if (el) {
+          const now = new Date();
+          el.textContent = now.toISOString().substring(11, 19) + ' UTC';
+        }
+      }
+      setInterval(updateUtcClock, 1000);
+      updateUtcClock();
+
+      // Countdown Timer for Evacuation Broadcast SLA
+      let totalSeconds = 13 * 60 + 32;
+      const timerEl = document.getElementById('evac-timer');
+      setInterval(function () {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          const mins = Math.floor(totalSeconds / 60);
+          const secs = totalSeconds % 60;
+          if (timerEl) {
+            timerEl.textContent = (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+          }
+        }
+      }, 1000);
+
+      // Toast notification helper
+      window.simulateAction = function(message, type) {
+        const container = document.getElementById('telemetry-toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = 'pointer-events-auto flex items-center gap-3 p-3.5 rounded-lg shadow-xl text-xs font-mono transition-all transform duration-200 translate-y-2 opacity-0 ' +
+          (type === 'error' ? 'bg-error text-on-error' :
+           type === 'warning' ? 'bg-surface-dim text-on-surface font-semibold' :
+           type === 'success' ? 'bg-primary text-on-primary' : 'bg-surface-container-highest text-on-surface');
+
+        const iconName = type === 'error' ? 'warning' : type === 'warning' ? 'notification_important' : type === 'success' ? 'check_circle' : 'info';
+        toast.innerHTML = '<span class="material-symbols-outlined text-[18px] shrink-0">' + iconName + '</span>' +
+                          '<div class="flex-1">' + message + '</div>';
+
+        container.appendChild(toast);
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-2', 'opacity-0');
+        });
+
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-x-4');
+          setTimeout(() => toast.remove(), 250);
+        }, 4500);
+      };
+
+      // Broadcast siren button handler
+      window.triggerEvacuationSiren = function() {
+        const btn = document.getElementById('siren-btn');
+        if (!btn) return;
+        btn.classList.add('bg-error/80');
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">cyclone</span> SIREN ENGAGED';
+        simulateAction('EVACUATION BROADCAST LIVE: All 12 Underground Strobes & 130dB Surface Horns Activated!', 'error');
+      };
+
+      // Mute audible strobe
+      window.toggleAudibleStrobe = function() {
+        simulateAction('Audible warning chime temporarily muted for 5 minutes. Visual LED strobes remain illuminated.', 'warning');
+      };
+
+      // AI Diagnostic Test Simulation
+      window.runAiDiagnostic = function() {
+        const status = document.getElementById('ai-status-indicator');
+        const log = document.getElementById('ai-log');
+        const btn = document.getElementById('ai-test-btn');
+
+        if (!status || !log || !btn) return;
+        btn.disabled = true;
+        btn.classList.add('opacity-50');
+        status.textContent = 'RUNNING 2048-STEP TEST...';
+        status.className = 'text-primary-fixed-dim font-bold';
+
+        const lines = [
+          'Verifying displacement tensor covariance matrix...',
+          'Residual drift checked against baseline: Delta = 0.003mm (PASS)',
+          'Inverse-velocity asymptotic fit: R2 = 0.998. Critical singularity confirmed.',
+          'Model Self-Test PASSED: Confidence Level 98.4%'
+        ];
+
+        let i = 0;
+        const interval = setInterval(() => {
+          if (i < lines.length) {
+            const entry = document.createElement('div');
+            entry.textContent = '[' + new Date().toISOString().substring(11, 19) + '] ' + lines[i];
+            entry.className = i === 2 ? 'text-error font-semibold' : 'text-surface-container-lowest/80';
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+            i++;
+          } else {
+            clearInterval(interval);
+            status.textContent = 'SELF-TEST: 100% NOMINAL';
+            status.className = 'text-primary-fixed';
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+            simulateAction('AI Neural Model integrity test completed. Results verified against geological bedrock index.', 'success');
+          }
+        }, 500);
+      };
+
+      // Recalibrate AI Heuristics
+      window.recalibrateModel = function() {
+        const log = document.getElementById('ai-log');
+        if (log) {
+          const entry = document.createElement('div');
+          entry.textContent = '[' + new Date().toISOString().substring(11, 19) + '] Heuristic baseline re-indexed to 420m stratigraphic layer.';
+          entry.className = 'text-primary-fixed font-semibold';
+          log.appendChild(entry);
+          log.scrollTop = log.scrollHeight;
+        }
+        simulateAction('Heuristic solver recalibrated. Damping coefficient set to 1.14.', 'info');
+      };
+
+      // Mesh Ping Test Simulation
+      window.pingMeshNetwork = function() {
+        const term = document.getElementById('mesh-terminal');
+        const pingStatus = document.getElementById('mesh-ping-status');
+        const btn = document.getElementById('ping-mesh-btn');
+        if (!term || !pingStatus || !btn) return;
+
+        btn.disabled = true;
+        btn.classList.add('opacity-50');
+        pingStatus.textContent = 'BROADCASTING PING ECHO...';
+        pingStatus.className = 'text-primary-fixed-dim font-bold';
+
+        let count = 1;
+        const pingInterval = setInterval(() => {
+          if (count <= 4) {
+            const line = document.createElement('div');
+            const latency = Math.floor(Math.random() * 25) + 35;
+            line.textContent = '[PING] Node ' + (count * 5) + ' Ack via REP-04-B: ' + latency + 'ms (RSSI -71dBm)';
+            line.className = 'text-surface-container-lowest/80';
+            term.appendChild(line);
+            term.scrollTop = term.scrollHeight;
+            count++;
+          } else {
+            clearInterval(pingInterval);
+            pingStatus.textContent = 'ALL 20 NODES RESPONDED';
+            pingStatus.className = 'text-primary-fixed';
+            btn.disabled = false;
+            btn.classList.remove('opacity-50');
+            simulateAction('LoRa Telemetry Mesh ping sweep completed: 20 of 20 nodes acknowledged (100% roundtrip).', 'success');
+          }
+        }, 400);
+      };
+
+      // Gateway Rerouting simulation
+      window.rerouteGateway = function() {
+        const term = document.getElementById('mesh-terminal');
+        if (term) {
+          const entry = document.createElement('div');
+          entry.textContent = '[' + new Date().toISOString().substring(11, 19) + '] Secondary route armed: Backup GW-NORTH-02 on Standby Channel 868.3 MHz.';
+          entry.className = 'text-primary-fixed font-semibold';
+          term.appendChild(entry);
+          term.scrollTop = term.scrollHeight;
+        }
+        simulateAction('Sub-surface nodes informed of secondary failover gateway GW-NORTH-02.', 'info');
+      };
+
+      // Force Spreading Factor Boost
+      window.boostSpreadingFactor = function() {
+        const term = document.getElementById('mesh-terminal');
+        if (term) {
+          const entry = document.createElement('div');
+          entry.textContent = '[' + new Date().toISOString().substring(11, 19) + '] OVERRIDE: Radio spreading factor set to SF12 (+3dB link budget, max deep-earth penetration).';
+          entry.className = 'text-primary-fixed font-bold';
+          term.appendChild(entry);
+          term.scrollTop = term.scrollHeight;
+        }
+        simulateAction('LoRa Spreading Factor forced to SF12. Maximum link margin enabled.', 'warning');
+      };
+    })();
+  </script>
+</div>
+</main>
+</div>
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none max-w-md w-full px-4 sm:px-0" id="telemetry-toast-container"></div>
+</body></html>

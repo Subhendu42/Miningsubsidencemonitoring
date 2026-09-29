@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta content="web_dashboard" name="shell-type"/><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>TerraSync // GeoTelemetry Console</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;font-family:'Inter',sans-serif;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-error-container": "#93000a",
+          "on-error": "#ffffff",
+          "surface-container-lowest": "#ffffff",
+          "on-secondary-fixed": "#141936",
+          "inverse-surface": "#462a02",
+          "on-surface-variant": "#44464f",
+          "on-tertiary": "#ffffff",
+          "on-primary": "#ffffff",
+          "tertiary": "#5a5f68",
+          "surface-container-highest": "#ffddb8",
+          "surface-dim": "#ffd2a0",
+          "on-background": "#2a1700",
+          "on-surface": "#2a1700",
+          "error": "#ba1a1a",
+          "surface-container": "#ffead7",
+          "tertiary-fixed": "#dee2ed",
+          "primary-fixed-dim": "#b3c6f8",
+          "error-container": "#ffdad6",
+          "on-secondary-fixed-variant": "#3f4564",
+          "surface-tint": "#4b5d8a",
+          "inverse-primary": "#b3c6f8",
+          "secondary-fixed-dim": "#bfc4ea",
+          "surface": "#fff8f4",
+          "on-tertiary-fixed-variant": "#424750",
+          "secondary-fixed": "#dee1ff",
+          "surface-variant": "#ffddb8",
+          "primary-container": "#8294c4",
+          "background": "#fff8f4",
+          "on-tertiary-fixed": "#171c24",
+          "outline": "#757780",
+          "tertiary-fixed-dim": "#c2c6d1",
+          "on-primary-container": "#192c56",
+          "outline-variant": "#c5c6d0",
+          "on-secondary": "#ffffff",
+          "secondary": "#575c7d",
+          "tertiary-container": "#90959f",
+          "surface-container-low": "#fff1e6",
+          "primary": "#4b5d8a",
+          "on-secondary-container": "#585d7e",
+          "surface-container-high": "#ffe4c8",
+          "inverse-on-surface": "#ffeede",
+          "secondary-container": "#d3d8fe",
+          "surface-bright": "#fff8f4",
+          "on-tertiary-container": "#292e36",
+          "on-primary-fixed": "#031943",
+          "on-primary-fixed-variant": "#334671",
+          "primary-fixed": "#d9e2ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "space-xl": "2rem",
+          "space-lg": "1.5rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "gutter": "1rem",
+          "margin": "1.5rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Inter", "sans-serif"],
+          "label-md": ["Inter", "sans-serif"],
+          "headline-lg": ["Inter", "sans-serif"],
+          "body-md": ["Inter", "sans-serif"],
+          "mono": ["IBM Plex Mono", "monospace"]
+        },
+        "fontSize": {
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script></head><body class="bg-background font-body-md text-on-surface min-h-screen selection:bg-primary-container selection:text-white"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface/95 backdrop-blur-md border-b border-surface-dim/60 shadow-xs flex items-center justify-between px-space-md lg:px-space-lg"><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-space-sm"><img alt="TerraSync Geospatial Sub-surface Telemetry Logo" class="h-8 w-auto object-contain rounded" src="https://lh3.googleusercontent.com/aida/AEtjO1VojGsmeF1SLlp8_O0B3cqBNBz1w5ZAZJwIbz5P_0oR1ylROeYy4L3UlPD96kuMPkVHC-bMnaqrexpWsqqKCZJKzxKr64yC5sqnM7CiQr4eaweCyyNFiNE83VDToCCAyCt50-rDj3VXm7Xc7qwfrNFgL8lg34hZY0tgroZoMgO2F8OM4wUzScFcm6I4qArNYCPyxFsp8oQAAQ03PUqttMPrgRJuNMzIWTsX1ACm7lFdZ-SV8JYBSKVw0tc0"/><div class="flex flex-col"><span class="text-sm font-headline-lg font-bold tracking-tight text-on-surface uppercase">TerraSync // GeoTelemetry</span><span class="text-[10px] text-primary font-mono tracking-wider flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>Mesh: 99.8% Online • Sync: 2s ago</span></div></div><div class="h-6 w-px bg-surface-dim hidden sm:block"></div><button class="hidden md:flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container-low border border-surface-dim/60 text-xs text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[16px] text-primary">layers</span><span class="font-medium font-mono text-[11px]">Shaft Sector 04 - Longwall North</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></button></div><nav class="hidden xl:flex items-center gap-space-xs shrink-0" data-active-classes="bg-surface-container-high text-on-surface font-semibold shadow-xs"><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="live-dashboard" href="#">Live Dashboard</a><a aria-current="page" class="px-space-sm py-1.5 rounded-lg transition-colors bg-surface-container-high text-on-surface font-semibold shadow-xs border border-surface-dim/60" data-path="sensor-fleet" href="#">Sensor Fleet</a><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="data-collected" href="#">Data Collected</a><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="emergency" href="#">Emergency</a><a class="px-space-sm py-1.5 rounded-lg font-label-md text-xs font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="admin-and-config" href="#">Admin &amp; Config</a></nav><div class="flex items-center gap-space-sm shrink-0"><button class="relative p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><button class="p-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors hidden sm:block"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-semibold shadow-xs"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></header><div class=""><main class="w-full pt-16 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Context Header Bar -->
+<section class="w-full px-space-md lg:px-space-xl py-space-md bg-surface-container-low border-b border-surface-dim/40">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-sm">
+<!-- Breadcrumb & Mode Tag -->
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<nav aria-label="Breadcrumb" class="flex items-center gap-1.5 text-xs font-mono text-on-surface-variant">
+<span>Basin North</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Sub-Terra Division</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Sector 04 Longwall</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Sensor Fleet Overview</span>
+</nav>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono bg-secondary-container text-on-secondary-container font-medium border border-surface-dim/50">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+            LoRaWAN 868MHz Mesh Active
+          </span>
+<span class="text-xs font-mono text-on-surface-variant">Sync: 0.18s • Calibrated 4m ago</span>
+</div>
+</div>
+<!-- Main Action Bar & Status Headline -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pt-2">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs uppercase tracking-wider text-primary font-semibold">Geotechnical Diagnostic Grid</span>
+<span class="text-xs text-on-surface-variant font-mono">• 20 Nodes (100% Deployed)</span>
+</div>
+<p class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Sensor Fleet Telemetry &amp; Early Warning Matrix</p>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-wrap items-center gap-space-xs sm:gap-space-sm">
+<button class="flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-primary text-on-primary shadow-xs hover:bg-[#3d4c72] transition-all group" id="viewGisBtn">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">map</span>
+<div class="flex flex-col text-left">
+<span class="font-label-md text-label-md font-semibold leading-tight">View all sensors</span>
+<span class="text-[10px] text-on-primary/80 font-mono tracking-tight leading-none">Opens Interactive GIS Spatial Heatmap</span>
+</div>
+<span class="material-symbols-outlined text-[16px] ml-1">north_east</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-dim/60 text-on-surface text-xs font-label-md transition-colors" id="meshPingBtn">
+<span class="material-symbols-outlined text-[18px] text-primary" id="pingIcon">sync</span>
+<span class="font-mono text-[12px]">Force Mesh Ping</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-dim/60 text-on-surface text-xs font-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary">download</span>
+<span class="font-mono text-[12px]">Export Sensor Audit</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Early Warning Status Row -->
+<section class="w-full px-space-md lg:px-space-xl py-space-md bg-surface">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-md">
+<!-- Toggle Simulator Bar -->
+<div class="flex items-center justify-between bg-surface-container-low border border-surface-dim/50 px-4 py-2 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">science</span>
+<span class="text-xs font-mono text-on-surface-variant font-medium">Telemetry State Simulator:</span>
+<span class="text-xs font-mono font-bold text-error uppercase" id="simulatorStateLabel">Active Alerts Mode</span>
+</div>
+<button class="flex items-center gap-2 px-3 py-1 rounded-lg bg-surface text-on-surface hover:bg-surface-container-highest border border-surface-dim/60 transition-all shadow-xs text-xs font-mono" id="toggleAlertStateBtn">
+<span class="material-symbols-outlined text-[16px] text-primary">swap_horiz</span>
+<span>Toggle Demo: Active Alerts vs. All Clear Nominal</span>
+</button>
+</div>
+<!-- State 1: Active Warning Status Card (Shown by Default) -->
+<div class="relative overflow-hidden rounded-lg bg-surface-container-lowest border border-surface-dim/70 p-space-md shadow-xs" id="earlyWarningAlertCard">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="space-y-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[26px] text-error animate-bounce">warning</span>
+<span class="font-mono text-xs tracking-wider uppercase font-bold text-error">EARLY WARNING STATUS // SECTOR 04 HIGH TENSION</span>
+</div>
+<div class="space-y-1">
+<p class="font-headline-lg text-lg lg:text-xl font-bold text-on-surface">2 sensors require immediate attention</p>
+<p class="font-body-md text-xs text-on-surface-variant">Micro-seismic shear stress &amp; lateral angular tilt exceed safety thresholds at Longwall Rib and Substation Slope.</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm pt-1">
+<div class="flex items-center gap-2 bg-error-container/60 border border-error/20 px-3 py-1.5 rounded-lg text-xs font-mono text-on-error-container font-semibold">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span>N128 — Critical (-138.4 mm Shear)</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high border border-surface-dim px-3 py-1.5 rounded-lg text-xs font-mono text-on-surface font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>N126 — High Risk (+1.12 mm/m Tilt)</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0 items-start md:items-end">
+<button class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-error text-on-error hover:bg-[#a01515] transition-colors font-label-md text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs" id="viewAlertsActionBtn">
+<span class="material-symbols-outlined text-[18px]">notification_important</span>
+<span>[ VIEW ALERTS ]</span>
+</button>
+<span class="text-[11px] font-mono text-on-surface-variant">Auto-escalation SLA: 14m remaining</span>
+</div>
+</div>
+</div>
+<!-- State 2: Nominal / All Clear Card (Hidden Initially) -->
+<div class="hidden relative overflow-hidden rounded-lg bg-surface-container-lowest border border-surface-dim/70 p-space-md shadow-xs" id="earlyWarningNominalCard">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[24px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-mono text-xs tracking-wider uppercase font-bold text-primary">EARLY WARNING STATUS // SUBSIDENCE STABLE</span>
+</div>
+<p class="font-headline-lg text-lg lg:text-xl font-bold text-on-surface">No critical alerts detected</p>
+<p class="font-body-md text-xs text-on-surface-variant">All monitored sensors are within limits. Continuous borehole pore tension and strata displacement rates are nominal.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary-container text-on-secondary-container text-xs font-mono font-medium border border-surface-dim/60">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+              20 / 20 Sensors Calibrated
+            </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Fleet Health Overview & KPI Metrics -->
+<section class="w-full px-space-md lg:px-space-xl py-space-md bg-surface">
+<div class="max-w-7xl mx-auto space-y-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-label-md text-label-md font-bold text-on-surface tracking-tight uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">monitoring</span>
+          Fleet Health &amp; Sub-surface Array Breakdown
+        </h2>
+<span class="text-xs font-mono text-on-surface-variant">Telemetry Window: Last 60 Minutes</span>
+</div>
+<!-- Key KPI Bento Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-sm">
+<!-- Health Index -->
+<div class="rounded-lg bg-surface-container-low border border-surface-dim/60 p-space-md flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="text-xs font-mono uppercase font-semibold">Fleet Health Index</span>
+<span class="material-symbols-outlined text-primary text-[20px]">health_and_safety</span>
+</div>
+<div class="my-2">
+<span class="font-mono text-2xl lg:text-3xl font-bold text-on-surface">94.2%</span>
+<span class="text-[11px] font-mono text-primary font-semibold block">Optimal Operation</span>
+</div>
+<div class="text-[11px] font-mono text-on-surface-variant space-y-0.5">
+<div>Batt avg: <span class="text-on-surface font-semibold">91%</span></div>
+<div>Packet loss: <span class="text-on-surface font-semibold">0.4%</span></div>
+</div>
+</div>
+<!-- MPBX Sensors -->
+<div class="rounded-lg bg-surface-container-low border border-surface-dim/60 p-space-md flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="text-xs font-mono uppercase font-semibold">Extensometers (MPBX)</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">height</span>
+</div>
+<div class="my-2">
+<span class="font-mono text-2xl lg:text-3xl font-bold text-on-surface">6 <span class="text-xs text-on-surface-variant font-normal">Nodes</span></span>
+<span class="text-[11px] font-mono text-error font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> 1 Critical Alert (N128)
+            </span>
+</div>
+<div class="text-[11px] font-mono text-on-surface-variant">
+            Depth profile: <span class="text-on-surface font-medium">-15m to -180m</span>
+</div>
+</div>
+<!-- Tiltmeters -->
+<div class="rounded-lg bg-surface-container-low border border-surface-dim/60 p-space-md flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="text-xs font-mono uppercase font-semibold">Biaxial Tiltmeters (TLT)</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">screen_rotation</span>
+</div>
+<div class="my-2">
+<span class="font-mono text-2xl lg:text-3xl font-bold text-on-surface">5 <span class="text-xs text-on-surface-variant font-normal">Nodes</span></span>
+<span class="text-[11px] font-mono text-secondary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 1 High Risk (N126)
+            </span>
+</div>
+<div class="text-[11px] font-mono text-on-surface-variant">
+            Inclination axis: <span class="text-on-surface font-medium">X/Y ±15°</span>
+</div>
+</div>
+<!-- Piezometers -->
+<div class="rounded-lg bg-surface-container-low border border-surface-dim/60 p-space-md flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="text-xs font-mono uppercase font-semibold">Pore Pressure (PZ)</span>
+<span class="material-symbols-outlined text-primary text-[20px]">water_drop</span>
+</div>
+<div class="my-2">
+<span class="font-mono text-2xl lg:text-3xl font-bold text-on-surface">5 <span class="text-xs text-on-surface-variant font-normal">Nodes</span></span>
+<span class="text-[11px] font-mono text-primary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 5 Nominal Stable
+            </span>
+</div>
+<div class="text-[11px] font-mono text-on-surface-variant">
+            Vibrating wire: <span class="text-on-surface font-medium">1.2 - 2.8 MPa</span>
+</div>
+</div>
+<!-- GNSS Surface -->
+<div class="rounded-lg bg-surface-container-low border border-surface-dim/60 p-space-md flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="text-xs font-mono uppercase font-semibold">GNSS Surface Receivers</span>
+<span class="material-symbols-outlined text-primary text-[20px]">satellite_alt</span>
+</div>
+<div class="my-2">
+<span class="font-mono text-2xl lg:text-3xl font-bold text-on-surface">4 <span class="text-xs text-on-surface-variant font-normal">Nodes</span></span>
+<span class="text-[11px] font-mono text-primary font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 4 Calibrated RTK
+            </span>
+</div>
+<div class="text-[11px] font-mono text-on-surface-variant">
+            Millimeter precision: <span class="text-on-surface font-medium">±1.4 mm</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive GIS Spatial Heatmap Section -->
+<section class="w-full px-space-md lg:px-space-xl py-space-md bg-surface" id="gisMapSection">
+<div class="max-w-7xl mx-auto space-y-space-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<h2 class="font-label-md text-label-md font-bold text-on-surface tracking-tight uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">share_location</span>
+            Spatial Subsidence Heatmap &amp; Borehole Cluster Mapping
+          </h2>
+<p class="font-body-md text-xs text-on-surface-variant">Contour gradient mapping overlaid on active open-cut pit and longwall void zone.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-mono text-on-surface-variant hidden md:inline">Coordinates: 77°26'S, 77°28'O</span>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-dim/60 text-xs font-mono text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">layers</span> Toggle Contours
+          </button>
+</div>
+</div>
+<!-- Spatial Image & Interactive Overlay Card -->
+<div class="relative w-full rounded-lg overflow-hidden bg-surface-container border border-surface-dim/60 shadow-xs group">
+<img class="w-full h-80 sm:h-96 lg:h-[460px] object-cover" data-alt="Technical geological risk assessment GIS satellite map of a large open-cut mine and underground longwall subsidence zone, featuring topographic contour elevation lines, heat zones in amber, green, and deep red risk shading over borehole sensor markers, complete with north arrow and distance scale in calm earthy tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu0rWxVQAF3lUT_0WZScQJAQLJrR3i2GKoKv4lLHPM4YbG_9tO3235TETiC-wTh935UjEs6UscZ4j9oxNgQL56aXHlFmziv6gfps8Ku5v8d-lhsQFpVpKYe2ABptIbYst1udy_RypRL7-Kn4jn56dJw0l0m5lx8OfkxPhUs7MgzaXTbdQ3BcPpCS1nl3rWOYJaHWd_tDTs62Qmi_vyourF-EcCq9eFiFkAZCtyHPuubUucZuRRUwdYDw"/>
+<!-- Spatial HUD Overlays -->
+<div class="absolute top-4 left-4 bg-surface/90 backdrop-blur-md px-3 py-2 rounded-lg border border-surface-dim/60 shadow-xs font-mono text-xs flex flex-col gap-1 max-w-xs">
+<div class="flex items-center justify-between text-[11px] font-bold text-on-surface">
+<span>SECTOR 04 // STRATA RISK</span>
+<span class="text-error flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>ZONE 3 CRITICAL</span>
+</div>
+<div class="text-[10px] text-on-surface-variant">Pit void boundary: 410m offset from longwall face</div>
+</div>
+<!-- Pinpoint Marker 1: N128 (Shear Critical) -->
+<div class="absolute top-1/2 left-[58%] -translate-x-1/2 -translate-y-1/2 group/pin cursor-pointer">
+<div class="relative flex items-center justify-center">
+<span class="absolute w-8 h-8 rounded-full bg-error/30 animate-ping"></span>
+<span class="w-5 h-5 rounded-full bg-error flex items-center justify-center text-on-error font-mono text-[10px] font-bold shadow-md ring-2 ring-surface">N128</span>
+</div>
+<!-- Tooltip -->
+<div class="hidden group-hover/pin:flex absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 rounded-lg bg-inverse-surface text-inverse-on-surface shadow-xl text-[10px] font-mono flex-col gap-0.5 pointer-events-none z-20">
+<span class="text-surface-container-highest font-bold">N128 // MPBX-04</span>
+<span>Anchor shear: -138.4 mm</span>
+<span class="text-error-container">Critical Strata Movement</span>
+</div>
+</div>
+<!-- Pinpoint Marker 2: N126 (Tilt High Risk) -->
+<div class="absolute top-[42%] left-[48%] -translate-x-1/2 -translate-y-1/2 group/pin cursor-pointer">
+<div class="relative flex items-center justify-center">
+<span class="absolute w-6 h-6 rounded-full bg-primary/30 animate-pulse"></span>
+<span class="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-on-primary font-mono text-[10px] font-bold shadow-md ring-2 ring-surface">N126</span>
+</div>
+<!-- Tooltip -->
+<div class="hidden group-hover/pin:flex absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 rounded-lg bg-inverse-surface text-inverse-on-surface shadow-xl text-[10px] font-mono flex-col gap-0.5 pointer-events-none z-20">
+<span class="text-surface-container-highest font-bold">N126 // TLT-02</span>
+<span>Angular tilt: +1.12 mm/m</span>
+<span class="text-secondary-fixed">Substation Slope High Risk</span>
+</div>
+</div>
+<!-- Bottom Heatmap Legend & GIS Open Action -->
+<div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex flex-col sm:flex-row items-center justify-between gap-2 p-2 sm:p-3 rounded-lg bg-surface/90 backdrop-blur-md border border-surface-dim/60 shadow-xs">
+<div class="flex flex-wrap items-center gap-3 text-xs font-mono text-on-surface">
+<span class="font-bold text-[11px] uppercase tracking-wider text-on-surface-variant">Zonation:</span>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-error"></span>
+<span class="text-[11px]">Underground High Risk (&gt;100mm)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-surface-container-highest border border-surface-dim"></span>
+<span class="text-[11px]">Amber Watch (&gt;25mm)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-primary"></span>
+<span class="text-[11px]">Green Nominal (&lt;10mm)</span>
+</div>
+</div>
+<a class="w-full sm:w-auto px-4 py-1.5 rounded-lg bg-primary hover:bg-[#3d4c72] text-on-primary font-mono text-xs font-medium flex items-center justify-center gap-1.5 transition-colors shadow-xs" href="#">
+<span>Expand Full Screen GIS</span>
+<span class="material-symbols-outlined text-[16px]">fullscreen</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Latest Sensor Readings & Telemetry Stream Table -->
+<section class="w-full px-space-md lg:px-space-xl py-space-md pb-space-xl bg-surface">
+<div class="max-w-7xl mx-auto space-y-space-md">
+<!-- Search & Filters Container -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm bg-surface-container p-space-sm rounded-lg border border-surface-dim/60">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-4 py-2 rounded-lg bg-surface-container-lowest border border-surface-dim/80 text-on-surface placeholder:text-on-surface-variant text-xs font-mono focus:outline-none focus:ring-2 focus:ring-primary shadow-xs" id="sensorSearchInput" placeholder="Search sensor ID (e.g. N128, N126, MPBX), location, or strata..." type="text"/>
+</div>
+<!-- Filter Badges -->
+<div class="flex flex-wrap items-center gap-1.5">
+<button class="filter-tab px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-primary text-on-primary shadow-xs transition-colors" data-filter="ALL">All (20)</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-surface-container-lowest border border-surface-dim/60 hover:bg-surface-container text-on-surface transition-colors flex items-center gap-1" data-filter="ALERT">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Critical &amp; Alerts (2)
+          </button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-surface-container-lowest border border-surface-dim/60 hover:bg-surface-container text-on-surface transition-colors" data-filter="MPBX">MPBX (6)</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-surface-container-lowest border border-surface-dim/60 hover:bg-surface-container text-on-surface transition-colors" data-filter="TLT">TLT (5)</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-surface-container-lowest border border-surface-dim/60 hover:bg-surface-container text-on-surface transition-colors" data-filter="PZ">PZ (5)</button>
+<button class="filter-tab px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-surface-container-lowest border border-surface-dim/60 hover:bg-surface-container text-on-surface transition-colors" data-filter="GNSS">GNSS (4)</button>
+</div>
+</div>
+<!-- Telemetry Stream List (Table-like responsive layout) -->
+<div class="space-y-space-sm" id="sensorListContainer">
+<!-- Sensor Card 1: N128 (Critical Alert) -->
+<article class="sensor-item rounded-lg bg-surface-container-lowest border border-surface-dim/70 p-space-md shadow-xs transition-all hover:bg-surface-container-low" data-sensor-type="MPBX" data-status="ALERT">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Sensor Tag & Location Info -->
+<div class="flex items-start gap-3 min-w-0 lg:w-1/3">
+<div class="w-10 h-10 rounded-lg bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">warning</span>
+</div>
+<div class="min-w-0 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-mono text-sm font-bold text-on-surface">N128</span>
+<span class="text-xs font-mono text-on-surface-variant font-medium">MPBX-04 [Anchor Shear]</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-error text-on-error font-bold uppercase">Critical Breached</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono truncate">Shaft 04 - Longwall Panel Rib (Depth: -125.0m)</p>
+<div class="flex items-center gap-3 text-[11px] font-mono text-on-surface-variant pt-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">battery_5_bar</span> 88%</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">cell_tower</span> -72 dBm</span>
+<span>Sensor Membrane OK</span>
+</div>
+</div>
+</div>
+<!-- Reading & Variance -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-md lg:w-1/3">
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Latest Reading &amp; Rate</span>
+<p class="font-mono text-base font-bold text-error">-138.4 mm <span class="text-xs font-normal">Displacement</span></p>
+<span class="text-xs font-mono text-error font-medium">+6.2 mm/day acceleration</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Threshold Variance</span>
+<p class="font-mono text-xs font-bold text-error bg-error-container/70 border border-error/20 px-2 py-1 rounded">+38.4 mm &gt; Safe Limit (100mm)</p>
+<span class="text-[10px] font-mono text-on-surface-variant">Optical Calibration Verified</span>
+</div>
+</div>
+<!-- Direct Actions -->
+<div class="flex items-center gap-2 justify-end shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">query_stats</span> Inspect
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">alt_route</span> Trace
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-[#3d4c72] text-xs font-mono transition-colors flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span> View GIS
+              </button>
+</div>
+</div>
+</article>
+<!-- Sensor Card 2: N126 (High Risk Alert) -->
+<article class="sensor-item rounded-lg bg-surface-container-lowest border border-surface-dim/70 p-space-md shadow-xs transition-all hover:bg-surface-container-low" data-sensor-type="TLT" data-status="ALERT">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Sensor Tag & Location Info -->
+<div class="flex items-start gap-3 min-w-0 lg:w-1/3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high border border-surface-dim text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px] text-primary">screen_rotation</span>
+</div>
+<div class="min-w-0 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-mono text-sm font-bold text-on-surface">N126</span>
+<span class="text-xs font-mono text-on-surface-variant font-medium">TLT-02 [Biaxial Inclinometer]</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-surface-container-highest text-on-surface border border-surface-dim font-bold uppercase">High Risk</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono truncate">Substation Foundation Perimeter (Surface Slope)</p>
+<div class="flex items-center gap-3 text-[11px] font-mono text-on-surface-variant pt-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">battery_6_bar</span> 92%</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">cell_tower</span> -65 dBm</span>
+<span>Dual MEMS OK</span>
+</div>
+</div>
+</div>
+<!-- Reading & Variance -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-md lg:w-1/3">
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Latest Reading &amp; Rate</span>
+<p class="font-mono text-base font-bold text-on-surface">+1.12 mm/m <span class="text-xs font-normal">Tilt Deviation</span></p>
+<span class="text-xs font-mono text-secondary font-medium">+0.18 mm/m/day slope rate</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Threshold Variance</span>
+<p class="font-mono text-xs font-bold text-on-surface bg-surface-container-highest/80 border border-surface-dim px-2 py-1 rounded">+0.32 mm/m &gt; Amber Watch</p>
+<span class="text-[10px] font-mono text-on-surface-variant">Surface anchor locked</span>
+</div>
+</div>
+<!-- Direct Actions -->
+<div class="flex items-center gap-2 justify-end shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">query_stats</span> Inspect
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">alt_route</span> Trace
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-[#3d4c72] text-xs font-mono transition-colors flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span> View GIS
+              </button>
+</div>
+</div>
+</article>
+<!-- Sensor Card 3: N114 (Nominal Piezometer) -->
+<article class="sensor-item rounded-lg bg-surface-container-lowest border border-surface-dim/70 p-space-md shadow-xs transition-all hover:bg-surface-container-low" data-sensor-type="PZ" data-status="NOMINAL">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Sensor Tag & Location Info -->
+<div class="flex items-start gap-3 min-w-0 lg:w-1/3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/60 text-on-secondary-container flex items-center justify-center shrink-0 border border-surface-dim/40">
+<span class="material-symbols-outlined text-[22px] text-primary">water_drop</span>
+</div>
+<div class="min-w-0 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-mono text-sm font-bold text-on-surface">N114</span>
+<span class="text-xs font-mono text-on-surface-variant font-medium">PZ-07 [Hydraulic Piezometer]</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-secondary-container text-on-secondary-container font-semibold border border-surface-dim/50">Nominal</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono truncate">North Aquifer Interceptor Borehole (Depth: -85.0m)</p>
+<div class="flex items-center gap-3 text-[11px] font-mono text-on-surface-variant pt-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">battery_full</span> 98%</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">cell_tower</span> -58 dBm</span>
+<span>Vibrating Wire Calibrated</span>
+</div>
+</div>
+</div>
+<!-- Reading & Variance -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-md lg:w-1/3">
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Latest Reading &amp; Rate</span>
+<p class="font-mono text-base font-bold text-on-surface">1.48 MPa <span class="text-xs font-normal text-on-surface-variant">Pore Pressure</span></p>
+<span class="text-xs font-mono text-primary font-medium">-0.02 MPa/day (Normal decay)</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Threshold Variance</span>
+<p class="font-mono text-xs font-medium text-primary bg-secondary-container/40 border border-surface-dim/50 px-2 py-1 rounded">Within Range (1.20 - 2.50 MPa)</p>
+<span class="text-[10px] font-mono text-on-surface-variant">Zero offset stable</span>
+</div>
+</div>
+<!-- Direct Actions -->
+<div class="flex items-center gap-2 justify-end shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">query_stats</span> Inspect
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">alt_route</span> Trace
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-dim text-on-surface text-xs font-mono transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> View GIS
+              </button>
+</div>
+</div>
+</article>
+<!-- Sensor Card 4: N102 (Nominal GNSS Rover) -->
+<article class="sensor-item rounded-lg bg-surface-container-lowest border border-surface-dim/70 p-space-md shadow-xs transition-all hover:bg-surface-container-low" data-sensor-type="GNSS" data-status="NOMINAL">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Sensor Tag & Location Info -->
+<div class="flex items-start gap-3 min-w-0 lg:w-1/3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/60 text-on-secondary-container flex items-center justify-center shrink-0 border border-surface-dim/40">
+<span class="material-symbols-outlined text-[22px] text-primary">satellite_alt</span>
+</div>
+<div class="min-w-0 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-mono text-sm font-bold text-on-surface">N102</span>
+<span class="text-xs font-mono text-on-surface-variant font-medium">GNSS-09 [Crown Pillar Rover]</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-secondary-container text-on-secondary-container font-semibold border border-surface-dim/50">Nominal RTK</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono truncate">Crown Pillar Bench West (Surface Monument)</p>
+<div class="flex items-center gap-3 text-[11px] font-mono text-on-surface-variant pt-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">battery_full</span> 96%</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">cell_tower</span> -52 dBm</span>
+<span>14 Satellites Locked</span>
+</div>
+</div>
+</div>
+<!-- Reading & Variance -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-md lg:w-1/3">
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Latest Reading &amp; Rate</span>
+<p class="font-mono text-base font-bold text-on-surface">-3.2 mm <span class="text-xs font-normal text-on-surface-variant">Z-Deflection</span></p>
+<span class="text-xs font-mono text-primary font-medium">Stable (&lt;0.05 mm/day)</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Threshold Variance</span>
+<p class="font-mono text-xs font-medium text-primary bg-secondary-container/40 border border-surface-dim/50 px-2 py-1 rounded">Delta Nominal (±15 mm limit)</p>
+<span class="text-[10px] font-mono text-on-surface-variant">Geodetic datum sync OK</span>
+</div>
+</div>
+<!-- Direct Actions -->
+<div class="flex items-center gap-2 justify-end shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">query_stats</span> Inspect
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">alt_route</span> Trace
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-dim text-on-surface text-xs font-mono transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> View GIS
+              </button>
+</div>
+</div>
+</article>
+<!-- Sensor Card 5: N108 (Nominal Borehole Extensometer) -->
+<article class="sensor-item rounded-lg bg-surface-container-lowest border border-surface-dim/70 p-space-md shadow-xs transition-all hover:bg-surface-container-low" data-sensor-type="MPBX" data-status="NOMINAL">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Sensor Tag & Location Info -->
+<div class="flex items-start gap-3 min-w-0 lg:w-1/3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/60 text-on-secondary-container flex items-center justify-center shrink-0 border border-surface-dim/40">
+<span class="material-symbols-outlined text-[22px] text-primary">height</span>
+</div>
+<div class="min-w-0 space-y-1">
+<div class="flex items-center gap-2">
+<span class="font-mono text-sm font-bold text-on-surface">N108</span>
+<span class="text-xs font-mono text-on-surface-variant font-medium">MPBX-02 [Strata Shear Collar]</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-secondary-container text-on-secondary-container font-semibold border border-surface-dim/50">Nominal</span>
+</div>
+<p class="text-xs text-on-surface-variant font-mono truncate">Ventilation Shaft Portal Outer Rim (Depth: -45.0m)</p>
+<div class="flex items-center gap-3 text-[11px] font-mono text-on-surface-variant pt-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">battery_6_bar</span> 93%</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">cell_tower</span> -61 dBm</span>
+<span>Anchor Rings Secure</span>
+</div>
+</div>
+</div>
+<!-- Reading & Variance -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-md lg:w-1/3">
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Latest Reading &amp; Rate</span>
+<p class="font-mono text-base font-bold text-on-surface">-7.8 mm <span class="text-xs font-normal text-on-surface-variant">Deflection</span></p>
+<span class="text-xs font-mono text-primary font-medium">+0.1 mm/day</span>
+</div>
+<div class="space-y-0.5">
+<span class="text-[10px] font-mono uppercase text-on-surface-variant">Threshold Variance</span>
+<p class="font-mono text-xs font-medium text-primary bg-secondary-container/40 border border-surface-dim/50 px-2 py-1 rounded">Delta Nominal (&lt; 25mm limit)</p>
+<span class="text-[10px] font-mono text-on-surface-variant">Anchor calibration stable</span>
+</div>
+</div>
+<!-- Direct Actions -->
+<div class="flex items-center gap-2 justify-end shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">query_stats</span> Inspect
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-dim/60 text-xs font-mono text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">alt_route</span> Trace
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-dim text-on-surface text-xs font-mono transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> View GIS
+              </button>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination / Footer Info -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-space-sm text-xs font-mono text-on-surface-variant">
+<span>Showing 5 of 20 live telemetry nodes in Sector 04 Longwall</span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-dim/60 hover:bg-surface-container disabled:opacity-50">Prev</button>
+<span class="px-2 text-on-surface font-semibold">1 / 4</span>
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-dim/60 hover:bg-surface-container">Next</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Logic Script -->
+<script>
+    (function initSensorFleetDemo() {
+      // Toggle Demo Early Warning Status
+      const toggleBtn = document.getElementById('toggleAlertStateBtn');
+      const alertCard = document.getElementById('earlyWarningAlertCard');
+      const nominalCard = document.getElementById('earlyWarningNominalCard');
+      const label = document.getElementById('simulatorStateLabel');
+      let isAlertState = true;
+
+      if (toggleBtn && alertCard && nominalCard) {
+        toggleBtn.addEventListener('click', () => {
+          isAlertState = !isAlertState;
+          if (isAlertState) {
+            alertCard.classList.remove('hidden');
+            nominalCard.classList.add('hidden');
+            label.textContent = 'Active Alerts Mode';
+            label.className = 'text-xs font-mono font-bold text-error uppercase';
+          } else {
+            alertCard.classList.add('hidden');
+            nominalCard.classList.remove('hidden');
+            label.textContent = 'All Clear Nominal';
+            label.className = 'text-xs font-mono font-bold text-primary uppercase';
+          }
+        });
+      }
+
+      // Smooth scroll to GIS view
+      const gisBtn = document.getElementById('viewGisBtn');
+      const gisSection = document.getElementById('gisMapSection');
+      if (gisBtn && gisSection) {
+        gisBtn.addEventListener('click', () => {
+          gisSection.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Force Mesh Ping micro-interaction
+      const pingBtn = document.getElementById('meshPingBtn');
+      const pingIcon = document.getElementById('pingIcon');
+      if (pingBtn && pingIcon) {
+        pingBtn.addEventListener('click', () => {
+          pingIcon.classList.add('animate-spin');
+          setTimeout(() => {
+            pingIcon.classList.remove('animate-spin');
+          }, 1000);
+        });
+      }
+
+      // Table Filter Tabs
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const sensorRows = document.querySelectorAll('.sensor-item');
+      
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Update active button state
+          filterTabs.forEach(t => {
+            t.classList.remove('bg-primary', 'text-on-primary', 'font-semibold');
+            t.classList.add('bg-surface-container-lowest', 'text-on-surface', 'font-medium');
+          });
+          tab.classList.remove('bg-surface-container-lowest', 'text-on-surface', 'font-medium');
+          tab.classList.add('bg-primary', 'text-on-primary', 'font-semibold');
+
+          const filterValue = tab.getAttribute('data-filter');
+          
+          sensorRows.forEach(row => {
+            const rowType = row.getAttribute('data-sensor-type');
+            const rowStatus = row.getAttribute('data-status');
+
+            if (filterValue === 'ALL') {
+              row.style.display = 'block';
+            } else if (filterValue === 'ALERT') {
+              row.style.display = (rowStatus === 'ALERT') ? 'block' : 'none';
+            } else {
+              row.style.display = (rowType === filterValue) ? 'block' : 'none';
+            }
+          });
+        });
+      });
+
+      // Jump to alerts button in Early Warning Card
+      const viewAlertsAction = document.getElementById('viewAlertsActionBtn');
+      if (viewAlertsAction) {
+        viewAlertsAction.addEventListener('click', () => {
+          const alertTab = document.querySelector('[data-filter="ALERT"]');
+          if (alertTab) {
+            alertTab.click();
+          }
+          const container = document.getElementById('sensorListContainer');
+          if (container) {
+            container.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Search bar filter
+      const searchInput = document.getElementById('sensorSearchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const val = e.target.value.toLowerCase().trim();
+          sensorRows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(val) ? 'block' : 'none';
+          });
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>
